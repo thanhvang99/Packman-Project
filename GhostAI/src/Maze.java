@@ -76,6 +76,7 @@ public class Maze {
     public int convertToIndex1D(int currentRow,int currentColumn){
         return currentRow*column + currentColumn;
     }
+
     public int getRowFromIndex1D(int index){return (int) Math.floor(index/column);}
     public int getColumnFromIndex1D(int index){return (index-(int)(Math.floor(index/column)*column));}
 
@@ -96,7 +97,7 @@ public class Maze {
         array[row][column] = type;
 
     }
-    public static Texture load(String key,String type){
+    public static Texture load(String key,String type) {
         try {
             return TextureLoader.getTexture(type,new FileInputStream(new File("images/"+key+"."+type)));
         } catch (IOException e) {
@@ -104,7 +105,8 @@ public class Maze {
         }
         return null;
     }
-    public void draw(int row,int column){
+
+    public void draw(int row,int column) {
         TYPE type = array[row][column];
         int x = type.getWidth()*column + startX_pixel;
         int y = type.getHeight()*row + startY_pixel;
@@ -132,15 +134,14 @@ public class Maze {
         }
 
     }
-    void drawCircleOutline(int x_pos,int y_pos,int r)
-    {
+
+    void drawCircleOutline(int x_pos,int y_pos,int r) {
         float angle, radian, x, y,tx,ty,xcos,ysin;       // values needed by drawCircleOutline
 
         glBegin(GL_POLYGON);
 
-        for (angle=0.0f; angle<360.0; angle+=2.0)
-        {
-            radian = (float) (angle * (Math.PI/180.0f));
+        for (angle=0.0f; angle<360.0; angle+=2.0) {
+            radian = (float) (angle * (Math.PI / 180.0f));
 
             xcos = (float)cos(radian);
             ysin = (float)sin(radian);
@@ -157,7 +158,6 @@ public class Maze {
 
         glEnd();
     }
-
 
 
 }

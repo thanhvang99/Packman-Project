@@ -21,6 +21,7 @@ public class UI {
         glOrtho(0,1080,960,0,1,-1);
         glMatrixMode(GL_MODELVIEW);
     }
+
     public void render(){
         Maze maze = g.getMaze();
         for(int i=0;i<maze.getRow();i++){
@@ -38,6 +39,7 @@ public class UI {
             }
         }
     }
+
     public void drawBlock(int row,int column){
         int x = startX + blockWidth*column;
         int y = startY + blockHeight*row;

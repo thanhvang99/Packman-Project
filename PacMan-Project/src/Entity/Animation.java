@@ -6,14 +6,17 @@ public class Animation extends Game {
     private long currentTime;
     private long lastTime;
     private long delta;
+    private int pointer;
     private Texture[] frames;
-    public Animation(int amountOfFrames,String key,String format){
+    private int fps;
+    public Animation(int amountOfFrames,int fps,String key,String format){
         currentTime = 0;
         lastTime = 0;
         delta = 0;
+        this.fps = fps;
         frames = new Texture[amountOfFrames];
         for(int i=0;i<amountOfFrames;i++){
-            frames[i] = GameService.loadTexture(key,format);
+            frames[i] = GameService.loadTexture(i+"_"+key,format);
         }
 
     }
@@ -33,8 +36,6 @@ public class Animation extends Game {
         return pointer;
     }
 
-    private int pointer;
-
     public long getCurrentTime() {
         return currentTime;
     }
@@ -53,6 +54,14 @@ public class Animation extends Game {
 
     public void setLastTime(long lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public int getFps() {
+        return fps;
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
     }
 
     public void setDelta(long delta) {

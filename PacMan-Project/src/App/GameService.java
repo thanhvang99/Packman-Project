@@ -16,13 +16,8 @@ public class GameService {
             e.printStackTrace();
         }
         return null;
-
     }
     public static long getTimeInMillisecond(){
         return Sys.getTime()*1000/Sys.getTimerResolution();
     }
 }
-// Hello Thuan
-// Hello Again
-// test test test
-// More and More

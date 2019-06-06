@@ -1,22 +1,41 @@
 package Controller;
 
+import App.GameService;
 import Entity.Animation;
 
-public class AnimationController extends ObjectController{
-    private Animation animation;
+import java.util.ArrayList;
 
-    public AnimationController(Animation animation){
-       this.animation = animation;
-       animation.add(this);
+public class AnimationController extends ObjectController{
+    private ArrayList<Animation> animations;
+
+    public AnimationController(ArrayList<Animation> animations){
+       this.animations = animations;
+       for(Animation animation : animations) {
+           animation.addController(this);
+       }
     }
 
     @Override
     public void update() {
-
+        bind();
 
     }
     private void bind(){
+        for( Animation animation : animations ) {
+            long currentTime = animation.getCurrentTime();
+            long lastTime = animation.getLastTime();
+            long delta = animation.getDelta();
 
+            animation.setCurrentTime(GameService.getTimeInMillisecond());
+            animation.setDelta(delta + (currentTime - lastTime));
 
+            if (animation.getDelta() >= animation.getFps() * 1000) {
+                animation.setDelta(animation.getDelta() - animation.getFps() * 1000);
+                animation.setPointer(animation.getPointer() + 1);
+            }
+
+            if (animation.getPointer() >= animation.getFrames().length) animation.setPointer(0);
+            animation.setLastTime(animation.getCurrentTime());
+        }
     }
 }

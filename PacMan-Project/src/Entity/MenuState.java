@@ -1,8 +1,5 @@
 package Entity;
 
-import Controller.StateController;
-
-public class MenuState {
-
+public class MenuState extends State {
 
 }

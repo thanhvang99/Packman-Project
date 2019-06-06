@@ -15,7 +15,8 @@ public class Main {
         run();
 
     }
-    public static void init(){
+
+    public static void init() {
         try {
             Display.setDisplayMode(new DisplayMode(1080,960));
             Display.setTitle("Graph");
@@ -25,7 +26,8 @@ public class Main {
             Display.destroy();
         }
     }
-    public static void run(){
+
+    public static void run() {
         Maze maze = new Maze(new In("maze.txt"));
         Graph g = new Graph(maze);
         UI ui = new UI(g,40,45);
@@ -56,6 +58,7 @@ public class Main {
         }
 
     }
+
     public static long getTime(){
         return (Sys.getTime()*1000)/Sys.getTimerResolution();
     }

@@ -5,10 +5,10 @@ import static org.lwjgl.opengl.GL11.*;
 public class Ghost {
     public enum DIRECTION{
         LEFT,RIGHT,UP,DOWN,STAND;
-        private Animation left= new Animation(3,1,"ghost") ,
-                right= new Animation(3,1,"ghost"),
-                up= new Animation(3,1,"ghost"),
-                down= new Animation(3,1,"ghost");
+        private Animation left = new Animation(3,1,"ghost") ,
+                right = new Animation(3,1,"ghost"),
+                up = new Animation(3,1,"ghost"),
+                down = new Animation(3,1,"ghost");
 
         public Animation getAnimation(){
             switch(this){
@@ -26,6 +26,7 @@ public class Ghost {
         }
 
     }
+
     private int row,column,width=30,height=30;
     private int x_pixel,y_pixel;
     private int speed;
@@ -33,7 +34,7 @@ public class Ghost {
     private Graph g;
     private Stack<Integer> path;
     private BreathFirstPath bfp;
-    private boolean isUpdateShortestPath = true;
+
     public Ghost(int row,int column,DIRECTION direction,int speed,Graph g){
         this.g = g;
         this.row = row;
@@ -44,7 +45,7 @@ public class Ghost {
         y_pixel = height*row + Maze.startY_pixel;
 
     }
-    public void draw(){
+    public void draw() {
         direction.getAnimation().bind();
         glBegin(GL_QUADS);
         glTexCoord2d(0,0);
@@ -57,13 +58,15 @@ public class Ghost {
         glVertex2i(x_pixel,y_pixel+height);
         glEnd();
     }
-    public void update(){
+
+    public void update() {
         findShortestPath(0,g.getMaze().convertToIndex1D(9,11));
         move();
         updatePosition(x_pixel,y_pixel);
 
     }
-    public void move(){
+
+    public void move() {
         switch(direction){
             case LEFT: x_pixel-=speed; break;
             case RIGHT: x_pixel+=speed; break;
@@ -74,12 +77,16 @@ public class Ghost {
         }
 
     }
-    private void updatePosition(int x_pixel,int y_pixel){
+
+    private void updatePosition(int x_pixel,int y_pixel) {
         row = (int) Math.floor((y_pixel - Maze.startY_pixel)*1.0/35);
         column = (int) Math.floor((x_pixel - Maze.startX_pixel)*1.0/35);
 
     }
-    private void findShortestPath(int source,int target){
+
+    private boolean isUpdateShortestPath = true;
+
+    private void findShortestPath(int source,int target) {
         if(isUpdateShortestPath) {
             bfp = new BreathFirstPath(g, source);
             path = bfp.pathTo(target);
@@ -93,9 +100,11 @@ public class Ghost {
             }
         }
     }
-    private void guessNextMove(){
+
+    private void guessNextMove() {
         path.pop();
-        if(!path.isEmpty()){
+
+        if(!path.isEmpty()) {
             int nextIndex = path.peek();
             int nextRow = g.getMaze().getRowFromIndex1D(nextIndex);
             int nextColumn = g.getMaze().getColumnFromIndex1D(nextIndex);
@@ -108,7 +117,7 @@ public class Ghost {
             } else if (nextColumn < column) {
                 direction = DIRECTION.LEFT;
             }
-        }else{
+        } else {
             direction = DIRECTION.STAND;
         }
 

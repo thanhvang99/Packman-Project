@@ -11,6 +11,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import Entity.Ghost;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class Main {
     }
     private static void init(){
         ArrayList<Entity> list = new ArrayList<Entity>();
-        Entity pac = new PacMan(3,3,"pac",11,15,"gif");
+        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
         list.add(pac);
         UIEntity ui = new UIEntity(list);
         ObjectController controller = new EntityController(pac);
@@ -49,10 +50,12 @@ public class Main {
     }
     private static void loopGame(){
         while(!Display.isCloseRequested()){
+            glClear(GL_COLOR_BUFFER_BIT);
             if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
                 Display.destroy();
                 System.exit(1);
             }
+
             Game.notifyController();
             Game.notifyUI();
             Display.update();

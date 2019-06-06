@@ -2,6 +2,7 @@ package Controller;
 
 import App.GameService;
 import Entity.Animation;
+import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -22,15 +23,14 @@ public class AnimationController extends ObjectController{
     }
     private void bind(){
         for( Animation animation : animations ) {
-            long currentTime = animation.getCurrentTime();
-            long lastTime = animation.getLastTime();
-            long delta = animation.getDelta();
 
             animation.setCurrentTime(GameService.getTimeInMillisecond());
-            animation.setDelta(delta + (currentTime - lastTime));
+            animation.setDelta((animation.getDelta()+(animation.getCurrentTime() - animation.getLastTime())));
+            System.out.println(animation.getDelta());
 
-            if (animation.getDelta() >= animation.getFps() * 1000) {
-                animation.setDelta(animation.getDelta() - animation.getFps() * 1000);
+
+            if (animation.getDelta() >= 1000/animation.getFps()) {
+                animation.setDelta(animation.getDelta() - 1000/animation.getFps());
                 animation.setPointer(animation.getPointer() + 1);
             }
 

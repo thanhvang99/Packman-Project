@@ -10,8 +10,8 @@ public class Animation extends Game {
     private Texture[] frames;
     private int fps;
     public Animation(int amountOfFrames,int fps,String key,String format){
+        lastTime = GameService.getTimeInMillisecond();
         currentTime = 0;
-        lastTime = 0;
         delta = 0;
         this.fps = fps;
         frames = new Texture[amountOfFrames];

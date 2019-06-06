@@ -33,7 +33,7 @@ public class UIEntity {
     }
      private void draw(Entity e){
         int x_pixel = e.getColumn() * 30;
-        int y_pixel = e.getHeight() * 30;
+        int y_pixel = e.getRow() * 30;
         int width = e.getWidth();
         int height = e.getHeight();
         glBegin(GL_QUADS);

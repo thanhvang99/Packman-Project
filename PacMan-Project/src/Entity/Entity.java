@@ -6,9 +6,8 @@ import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
 
-public class Entity extends Game{
-    private int width,height;
-    private int row,column;
+public abstract class Entity extends DrawableObject{
+    // Default value for width,height = 25;
     private Animation left,up,down,right;
     public enum DIRECTION{
         LEFT,UP,RIGHT,DOWN;
@@ -16,12 +15,9 @@ public class Entity extends Game{
     private DIRECTION direction = DIRECTION.LEFT;
 
     public Entity(int row,int column,String keyName,int numberOfFrame,int fps,String format){
-        this.row = row;
-        this.column = column;
+        super(row,column,25,25);
 
         // Set up default
-        width = 25;
-        height = 25;
         setAnimation(keyName,numberOfFrame,fps,format);
 
     }
@@ -36,23 +32,8 @@ public class Entity extends Game{
         animations.add(right);
         animations.add(up);
         animations.add(down);
+
         ObjectController controller = new AnimationController(animations);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
     }
 
     public Animation getAnimation() {
@@ -66,22 +47,6 @@ public class Entity extends Game{
         }
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
-    }
-
     public DIRECTION getDirection() {
         return direction;
     }
@@ -92,7 +57,7 @@ public class Entity extends Game{
 
     // Default node_size_width = 30,node_size_height = 30;
     public Rectangle getRect(){
-        return new Rectangle(column*30,row*30,width,height);
+        return new Rectangle(getColumn()*30,getRow()*30,getWidth(),getHeight());
     }
 
 }

@@ -2,16 +2,15 @@ package App;
 
 import Controller.EntityController;
 import Controller.ObjectController;
-import Entity.Entity;
+import Entity.DrawableObject;
 import Entity.Game;
+import Entity.Graph;
 import Entity.PacMan;
 import UI.UIEntity;
-import UI.UIState;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import Entity.Ghost;
 
 import java.util.ArrayList;
 
@@ -25,11 +24,11 @@ public class Main {
         loopGame();
     }
     private static void init(){
-        ArrayList<Entity> list = new ArrayList<Entity>();
-        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
+        ArrayList<DrawableObject> list = new ArrayList<DrawableObject>();
+        DrawableObject pac = new PacMan(3,3,"pac",11,22,"gif");
         list.add(pac);
-        UIEntity ui = new UIEntity(list);
-        ObjectController controller = new EntityController(pac);
+        Graph graph = new Graph("maze.txt");
+        UIEntity ui = new UIEntity(list,graph);
     }
     private static void setUpWindow(){
         try {

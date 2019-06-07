@@ -6,11 +6,9 @@ import UI.UIEntity;
 import java.util.ArrayList;
 
 public abstract class Game {
-    private static ArrayList<ObjectController> objectControllers;
-    private static ArrayList<UIEntity> UIObjects;
+    private static ArrayList<ObjectController> objectControllers = new ArrayList<ObjectController>();
+    private static ArrayList<UIEntity> UIObjects = new ArrayList<UIEntity>();
     public Game(){
-        objectControllers = new ArrayList<ObjectController>();
-        UIObjects = new ArrayList<UIEntity>();
     }
     public void addController(ObjectController controller){
         objectControllers.add(controller);
@@ -30,4 +28,5 @@ public abstract class Game {
         }
 
     }
+    public static ArrayList<ObjectController> getObjectControllers(){return objectControllers;}
 }

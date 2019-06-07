@@ -6,7 +6,7 @@ import Entity.Node;
 
 import java.util.ArrayList;
 
-public class GraphController extends ObjectController{
+public class GraphController extends ObjectController {
     private int previousX_pixel,previousY_pixel;
     private Graph graph;
     private ArrayList<GameObject> listGameObject;
@@ -19,7 +19,7 @@ public class GraphController extends ObjectController{
 
     @Override
     public void update() {
-        for( GameObject o : listGameObject ){
+        for( GameObject o : listGameObject ) {
             try {
                 checkCollise(o);
             } catch (ArrayIndexOutOfBoundsException e) {

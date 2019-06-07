@@ -7,10 +7,10 @@ import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
-public class AnimationController extends ObjectController{
+public class AnimationController extends ObjectController {
     private ArrayList<Animation> animations;
 
-    public AnimationController(ArrayList<Animation> animations){
+    public AnimationController(ArrayList<Animation> animations) {
        this.animations = animations;
         GameObject.addController(this);
     }
@@ -20,7 +20,8 @@ public class AnimationController extends ObjectController{
         bind();
 
     }
-    private void bind(){
+
+    private void bind() {
         for( Animation animation : animations ) {
 
             animation.setCurrentTime(GameService.getTimeInMillisecond());

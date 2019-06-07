@@ -1,6 +1,6 @@
 package Controller;
 
-public class GhostController extends EntityController{
+public class GhostController extends EntityController {
     @Override
     public void move() {
 

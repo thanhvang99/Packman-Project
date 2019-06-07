@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Main {
-    public static void main ( String [] args){
+    public static void main ( String [] args) {
         setUpWindow();
         setUpOpenGL();
         init();
         loopGame();
     }
-    private static void init(){
+
+    private static void init() {
         ArrayList<GameObject> list = new ArrayList<GameObject>();
 
         Entity pac = new PacMan(3,3,"pac",11,22,"gif");
@@ -40,7 +41,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-    private static void setUpOpenGL(){
+    private static void setUpOpenGL() {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0,530,670,0,1,-1);
@@ -48,8 +49,8 @@ public class Main {
         glEnable(GL_TEXTURE_2D);
 
     }
-    private static void loopGame(){
-        while(!Display.isCloseRequested()){
+    private static void loopGame() {
+        while(!Display.isCloseRequested()) {
             glClear(GL_COLOR_BUFFER_BIT);
             if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
                 Display.destroy();

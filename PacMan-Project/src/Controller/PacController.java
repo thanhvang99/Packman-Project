@@ -4,7 +4,7 @@ import Entity.Entity;
 import Entity.GameObject;
 import org.lwjgl.input.Keyboard;
 
-public class PacController extends EntityController{
+public class PacController extends EntityController {
     private Entity e;
 
     public PacController(Entity e){

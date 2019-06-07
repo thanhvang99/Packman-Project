@@ -1,6 +1,5 @@
-package Controller;
+package Helper;
 
-import Entity.Button;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -24,8 +23,6 @@ public class ButtonController {
     }
 
     public void update() {
-//        if (isClicked()) {
-//            System.out.println(true);
-//        }
     }
 }
+

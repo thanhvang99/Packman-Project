@@ -1,6 +1,4 @@
-package Entity;
-
-import Controller.ButtonController;
+package Helper;
 
 import java.util.ArrayList;
 
@@ -11,9 +9,8 @@ public class Button {
     private int height;
     private int width;
 
+
     private static ArrayList<ButtonController> listOfButton= new ArrayList<ButtonController>(); ;
-
-
 
     public Button (int x, int y, int width, int height){
         this.xPosition = x;

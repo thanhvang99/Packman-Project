@@ -6,16 +6,10 @@ import UI.UIState;
 public abstract class State {
     private Animation background;
 
-    //    public static State currentState;
     private static StateController currentStateController;
     private static UIState currentUI;
 
-//    private static List<UIState> listOfUIState;
-//    private static List<StateController> listOfStateController;
-
-
-
-    public static  StateController getCurrentStateController() {
+    public static StateController getCurrentStateController() {
         return currentStateController;
     }
 
@@ -23,7 +17,7 @@ public abstract class State {
         return currentUI;
     }
 
-    public void setCurrentStateController(StateController currentStateController) {
+    public static void setCurrentStateController(StateController currentStateController) {
         State.currentStateController = currentStateController;
     }
 
@@ -33,6 +27,10 @@ public abstract class State {
 
     public static void notifyUI(){
         currentUI.render();
+    }
+
+    public static void notifyStateController(){
+        currentStateController.updateState();
     }
 
     public boolean isOn(){

@@ -17,32 +17,12 @@ public class PacController extends EntityController{
     public void update() {
         e.setPreviousX_pixel(e.getX_pixel());
         e.setPreviousY_pixel(e.getY_pixel());
-        move();
-        if( !isInWindow() ){
+        receiveInput();
+        move(e);
+        if( !isInWindow(e) ){
             e.setX_pixel(e.getPreviousX_pixel());
             e.setY_pixel(e.getPreviousY_pixel());
         }
-    }
-
-    @Override
-    public void move() {
-        receiveInput();
-        switch (e.getDirection()) {
-            case LEFT:
-                e.setX_pixel(e.getX_pixel() - e.getSpeed());
-                break;
-            case RIGHT:
-                e.setX_pixel(e.getX_pixel() + e.getSpeed());
-                break;
-            case UP:
-                e.setY_pixel(e.getY_pixel() - e.getSpeed());
-                break;
-            case DOWN:
-                e.setY_pixel(e.getY_pixel() + e.getSpeed());
-                break;
-        }
-
-
     }
     private void receiveInput(){
         while(Keyboard.next()){
@@ -56,9 +36,6 @@ public class PacController extends EntityController{
                 e.setDirection(Entity.DIRECTION.DOWN);
             }
         }
-    }
-    private boolean isInWindow(){
-        return new Rectangle(10,10,Display.getWidth()-30,Display.getHeight()-20).contains(e.getRect());
     }
 }
 

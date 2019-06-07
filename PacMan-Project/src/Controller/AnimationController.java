@@ -2,7 +2,6 @@ package Controller;
 
 import App.GameService;
 import Entity.Animation;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 

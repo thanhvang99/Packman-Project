@@ -1,11 +1,11 @@
 package Controller;
 
+import Entity.State;
 import UI.UIEntity;
 
 public class GameStateController extends StateController {
 
     private UIEntity uiEntity;
-
     public GameStateController(UIEntity uiEntiity) {
         super(uiEntiity);
 //        setCurrentController(this);

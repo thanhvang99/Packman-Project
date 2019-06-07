@@ -1,5 +1,6 @@
 package App;
 
+import Entity.Node;
 import org.lwjgl.Sys;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;

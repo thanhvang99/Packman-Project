@@ -5,7 +5,6 @@ import Entity.Animation;
 import Entity.DrawableObject;
 import Entity.Graph;
 import Entity.Node;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 

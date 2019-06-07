@@ -1,8 +1,9 @@
 package Entity;
 
 import App.GameService;
+import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.opengl.Texture;
-public class Animation extends Game {
+public class Animation extends GameObject {
     private long currentTime;
     private long lastTime;
     private long delta;
@@ -66,5 +67,10 @@ public class Animation extends Game {
 
     public void setDelta(long delta) {
         this.delta = delta;
+    }
+
+    @Override
+    public Rectangle getRect() {
+        return null;
     }
 }

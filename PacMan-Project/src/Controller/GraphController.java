@@ -1,10 +1,13 @@
 package Controller;
 
 import Entity.*;
+import edu.princeton.cs.algs4.Stack;
 
 import java.util.ArrayList;
 
 public class GraphController extends ObjectController{
+    private BreathFirstPath bfp;
+    private boolean isPacMove = false;
     private Graph graph;
     private ArrayList<Ghost> listGhosts;
     private Entity pac;
@@ -19,13 +22,17 @@ public class GraphController extends ObjectController{
 
     @Override
     public void update() {
-            try {
-                checkCollise(pac);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("check");
-            }
-
+        try {
+            checkCollise(pac);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("check");
         }
+        if( isPacMove ){
+            updateShortestPath();
+            isPacMove = false;
+        }
+
+    }
     public void checkCollise(GameObject o) throws ArrayIndexOutOfBoundsException{
         Node[][] nodes = graph.getNodes();
         int row = o.getRow();
@@ -49,6 +56,7 @@ public class GraphController extends ObjectController{
                                         nextObject.setType(GameObject.TYPE.NORMAL);
 
                                         // Update possition
+                                        isPacMove = true;
                                         currentObject.setColumn(nextObject.getColumn());
                                         currentObject.setRow(nextObject.getRow());
                                     }
@@ -60,4 +68,11 @@ public class GraphController extends ObjectController{
             }
         }
     }
+    private void updateShortestPath(){
+        for( Ghost g : listGhosts ){
+            bfp = new BreathFirstPath(graph,new Node(g.getRow(),g.getColumn(), GameObject.TYPE.GHOST));
+            g.setShortestPath(bfp.pathTo(new Node(pac.getRow(),pac.getColumn(), GameObject.TYPE.PAC)));
+        }
+    }
 }
+

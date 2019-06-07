@@ -1,25 +1,26 @@
 package Controller;
 
-import Entity.State;
 import UI.UIEntity;
 
-public class GameStateController extends StateController {
+public class GameStateController {
 
     private UIEntity uiEntity;
+
     public GameStateController(UIEntity uiEntiity) {
-        super(uiEntiity);
+//        super(uiEntiity);
 //        setCurrentController(this);
+//
+//    }
+//
+//    @Override
+//    public void updateState() {
+//
+//    }
+//
+//    @Override
+//    public boolean checkInput() {
+//        return false;
+//    }
 
     }
-
-    @Override
-    public void updateState() {
-
-    }
-
-    @Override
-    public boolean checkInput() {
-        return false;
-    }
-
 }

@@ -1,33 +1,31 @@
 package Controller;
 
-import Entity.GameObject;
-import Entity.Graph;
-import Entity.Node;
+import Entity.*;
 
 import java.util.ArrayList;
 
 public class GraphController extends ObjectController{
     private Graph graph;
-    private ArrayList<GameObject> listGameObject;
+    private ArrayList<Ghost> listGhosts;
+    private Entity pac;
     private int previousRow,previousColumn;
 
-    public GraphController(Graph graph,ArrayList<GameObject> list){
+    public GraphController(Graph graph, ArrayList<Ghost> list, Entity pac){
         this.graph = graph;
-        this.listGameObject = list;
+        this.listGhosts = list;
+        this.pac = pac;
         GameObject.addController(this);
     }
 
     @Override
     public void update() {
-        for( GameObject o : listGameObject ){
             try {
-                checkCollise(o);
+                checkCollise(pac);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("check");
             }
 
         }
-    }
     public void checkCollise(GameObject o) throws ArrayIndexOutOfBoundsException{
         Node[][] nodes = graph.getNodes();
         int row = o.getRow();
@@ -36,7 +34,6 @@ public class GraphController extends ObjectController{
             for(int j=column-1;j<=column+1;j++){
                 if( i!=row || j!=column ){
                     if( i>=0 && i<graph.getRow() && j>=0 &&j<graph.getColumn() ) {
-                        System.out.println("sad");
                         if (nodes[i][j].getRect().intersects(o.getRect())) {
                             switch (nodes[i][j].getType()) {
                                 case WALL:

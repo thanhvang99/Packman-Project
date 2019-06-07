@@ -30,8 +30,6 @@ public class Graph extends GameObject {
             }
         }
 
-
-
         buildAdjencyList();
     }
     private void buildAdjencyList(){
@@ -47,11 +45,15 @@ public class Graph extends GameObject {
             for(int j=currentColumn-1;j<=currentColumn+1;j++){
                 if( count%2 != 0){
                     // Make Edge
-                    Node.TYPE type = nodes[i][j].getType();
-                    if( type != Node.TYPE.WALL ){
-                        adjency[currentRow][currentColumn].add(nodes[i][j]);
+
+                    if( i>=0 && i<getRow() && j>=0 && j<getColumn() ) {
+                        Node.TYPE type = nodes[i][j].getType();
+                        if (type != Node.TYPE.WALL) {
+                            adjency[currentRow][currentColumn].add(nodes[i][j]);
+                        }
                     }
                 }
+                count++;
             }
         }
     }

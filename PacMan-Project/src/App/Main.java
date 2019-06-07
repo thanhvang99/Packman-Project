@@ -1,9 +1,13 @@
 package App;
 
+import Controller.BreathFirstPath;
+import Controller.GhostController;
 import Controller.GraphController;
 import Controller.PacController;
 import Entity.*;
 import UI.UIEntity;
+import edu.princeton.cs.algs4.Bag;
+import edu.princeton.cs.algs4.Stack;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -20,16 +24,25 @@ public class Main {
         init();
         loopGame();
     }
+    private void test(){
+
+    }
     private static void init(){
-        ArrayList<GameObject> list = new ArrayList<GameObject>();
+        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
 
         Entity pac = new PacMan(3,3,"pac",11,22,"gif");
-        list.add(pac);
+        Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
+
+        listOfGhosts.add((Ghost)ghost);
 
         Graph graph = new Graph("maze.txt");
-        UIEntity ui = new UIEntity(list,graph);
-        new PacController(pac);
-        new GraphController(graph,list);
+
+
+
+//        new UIEntity(pac,listOfGhosts,graph);
+//        new PacController(pac);
+//        new GraphController(graph,listOfGhosts,pac);
+//        new GhostController(listOfGhosts);
     }
     private static void setUpWindow(){
         try {

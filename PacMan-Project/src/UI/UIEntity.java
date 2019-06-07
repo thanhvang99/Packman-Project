@@ -12,13 +12,15 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.newdawn.slick.opengl.renderer.SGL.GL_QUADS;
 
 public class UIEntity {
-    private ArrayList<GameObject> objects;
+    private Entity pac;
+    private ArrayList<Ghost> ghosts;
     private Graph graph;
 
-    public UIEntity(ArrayList<GameObject> objects, Graph graph){
+    public UIEntity(Entity pac,ArrayList<Ghost> ghosts, Graph graph){
         super();
+        this.pac = pac;
         this.graph = graph;
-        this.objects = objects;
+        this.ghosts = ghosts;
         GameObject.addUI(this);
     }
     public void render(){
@@ -34,8 +36,8 @@ public class UIEntity {
             }
         }
 
-        // Render entities
-        for ( GameObject o : objects ){
+        // Render ghost
+        for ( GameObject o : ghosts ){
             if( o instanceof DrawableObject ) {
                 DrawableObject drawObject = (DrawableObject) o;
                 Animation animation = drawObject.getAnimation();
@@ -43,6 +45,12 @@ public class UIEntity {
                 draw(drawObject);
             }
         }
+        // Render Pac
+        Animation animation = pac.getAnimation();
+        animation.getFrames()[animation.getPointer()].bind();
+        draw(pac);
+
+
 
     }
      private void draw(DrawableObject e){

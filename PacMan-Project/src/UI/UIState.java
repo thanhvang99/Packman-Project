@@ -1,16 +1,6 @@
 package UI;
 
-import Entity.State;
+public abstract class UIState {
+    public abstract void render();
 
-public class UIState {
-    protected State state;
-
-    public UIState(State state) {
-        this.state = state;
-
-    }
-
-    public void setUIState(UIState uiState){
-        State.currentUI = uiState;
-    }
 }

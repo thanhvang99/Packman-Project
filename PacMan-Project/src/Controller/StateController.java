@@ -8,6 +8,7 @@ public abstract class StateController {
 
     public StateController(State state) {
         this.state = state;
+        setCurrentController(this);
     }
 
     public abstract void updateState();
@@ -15,6 +16,6 @@ public abstract class StateController {
     public abstract boolean checkInput();
 
     public void setCurrentController(StateController stateController) {
-        State.currentStateController = stateController;
+
     }
 }

@@ -29,8 +29,8 @@ public class UIEntity {
             for(int j=0;j<graph.getColumn();j++){
                 Animation animation = nodes[i][j].getAnimation();
                 animation.getFrames()[animation.getPointer()].bind();
-                if( nodes[i][j].getType() == Node.TYPE.DOT ) drawCircleOutline(nodes[i][j]);
-                else draw(nodes[i][j]);
+                if( nodes[i][j].getType() == GameObject.TYPE.DOT ) drawCircleOutline(nodes[i][j]);
+                else if (nodes[i][j].getType() == GameObject.TYPE.WALL) draw(nodes[i][j]);
             }
         }
 

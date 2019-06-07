@@ -10,7 +10,7 @@ public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;
     private Animation left,up,down,right;
 
-    private int speed = 3;
+    private int speed = 2;
     public enum DIRECTION{
         LEFT,UP,RIGHT,DOWN,STAND;
     }

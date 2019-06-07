@@ -11,6 +11,7 @@ public abstract class GameObject {
     private static ArrayList<UIEntity> UIObjects = new ArrayList<UIEntity>();
     private int row,column,width,height,x_pixel,y_pixel,multipleNumber=1;
     private int previousX_pixel,previousY_pixel;
+    private int previousRow,previousColumn;
     public boolean collisedWithWall = false;
     public enum TYPE{
         GHOST,PAC,WALL,DOT,NORMAL;
@@ -137,5 +138,21 @@ public abstract class GameObject {
 
     public int getPreviousX_pixel() {
         return previousX_pixel;
+    }
+
+    public void setPreviousRow(int previousRow) {
+        this.previousRow = previousRow;
+    }
+
+    public void setPreviousColumn(int previousColumn) {
+        this.previousColumn = previousColumn;
+    }
+
+    public int getPreviousRow() {
+        return previousRow;
+    }
+
+    public int getPreviousColumn() {
+        return previousColumn;
     }
 }

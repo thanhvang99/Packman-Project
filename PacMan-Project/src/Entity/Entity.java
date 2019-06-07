@@ -9,13 +9,16 @@ import java.util.ArrayList;
 public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;
     private Animation left,up,down,right;
+
+    private int speed = 3;
     public enum DIRECTION{
-        LEFT,UP,RIGHT,DOWN;
+        LEFT,UP,RIGHT,DOWN,STAND;
     }
     private DIRECTION direction = DIRECTION.LEFT;
 
-    public Entity(int row,int column,String keyName,int numberOfFrame,int fps,String format){
-        super(row,column,25,25);
+
+    public Entity(int row,int column,String keyName,int numberOfFrame,int fps,String format,GameObject.TYPE type){
+        super(row,column,25,25,type);
 
         // Set up default
         setAnimation(keyName,numberOfFrame,fps,format);
@@ -56,8 +59,9 @@ public abstract class Entity extends DrawableObject{
     }
 
     // Default node_size_width = 30,node_size_height = 30;
-    public Rectangle getRect(){
-        return new Rectangle(getColumn()*30,getRow()*30,getWidth(),getHeight());
-    }
+    public void setSpeed(int speed){this.speed = speed;}
 
+    public int getSpeed() {
+        return speed;
+    }
 }

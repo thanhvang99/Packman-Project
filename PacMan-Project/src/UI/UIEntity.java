@@ -1,10 +1,7 @@
 package UI;
 
 
-import Entity.Animation;
-import Entity.DrawableObject;
-import Entity.Graph;
-import Entity.Node;
+import Entity.*;
 import org.lwjgl.Sys;
 
 import java.util.ArrayList;
@@ -15,27 +12,16 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.newdawn.slick.opengl.renderer.SGL.GL_QUADS;
 
 public class UIEntity {
-    private ArrayList<DrawableObject> objects;
+    private ArrayList<GameObject> objects;
     private Graph graph;
 
-    public UIEntity(ArrayList<DrawableObject> objects,Graph graph){
+    public UIEntity(ArrayList<GameObject> objects, Graph graph){
         super();
         this.graph = graph;
         this.objects = objects;
-
-
-        for( DrawableObject o : objects ){
-            o.addUI(this);
-        }
-
+        GameObject.addUI(this);
     }
     public void render(){
-        // Render entities
-        for ( DrawableObject o : objects ){
-            Animation animation = o.getAnimation();
-            animation.getFrames()[animation.getPointer()].bind();
-            draw(o);
-        }
 
         // Render Graph
         Node[][] nodes = graph.getNodes();
@@ -47,10 +33,21 @@ public class UIEntity {
                 else draw(nodes[i][j]);
             }
         }
+
+        // Render entities
+        for ( GameObject o : objects ){
+            if( o instanceof DrawableObject ) {
+                DrawableObject drawObject = (DrawableObject) o;
+                Animation animation = drawObject.getAnimation();
+                animation.getFrames()[animation.getPointer()].bind();
+                draw(drawObject);
+            }
+        }
+
     }
      private void draw(DrawableObject e){
-        int x_pixel = e.getColumn() * 30;
-        int y_pixel = e.getRow() * 30;
+        int x_pixel = e.getX_pixel();
+        int y_pixel = e.getY_pixel();
         int width = e.getWidth();
         int height = e.getHeight();
         int multipleNumber = e.getMultipleNumber();

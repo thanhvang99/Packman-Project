@@ -1,14 +1,12 @@
 package Entity;
 
-import Entity.Game;
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
+import org.lwjgl.util.Rectangle;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
-public class Graph extends Game {
+public class Graph extends GameObject {
     private int vertices;
     private int edges;
     private int row,column;
@@ -16,6 +14,7 @@ public class Graph extends Game {
     private Node[][] nodes;
 
     public Graph(String name){
+        super();
         In in = new In(new File(name));
         row = in.readInt();
         column = in.readInt();
@@ -95,6 +94,11 @@ public class Graph extends Game {
 
     public int getColumn() {
         return column;
+    }
+
+    @Override
+    public Rectangle getRect() {
+        return null;
     }
 
     public void setRow(int row) {

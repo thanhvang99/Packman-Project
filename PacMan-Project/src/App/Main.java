@@ -39,10 +39,11 @@ public class Main {
 
 
 
-//        new UIEntity(pac,listOfGhosts,graph);
-//        new PacController(pac);
-//        new GraphController(graph,listOfGhosts,pac);
-//        new GhostController(listOfGhosts);
+        new UIEntity(pac,listOfGhosts,graph);
+        new PacController(pac);
+        new GraphController(graph,listOfGhosts,pac);
+        new GhostController(listOfGhosts);
+
     }
     private static void setUpWindow(){
         try {

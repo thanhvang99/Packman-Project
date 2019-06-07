@@ -4,19 +4,19 @@ import edu.princeton.cs.algs4.Stack;
 import org.lwjgl.util.Rectangle;
 
 public class Ghost extends Entity{
-    private Stack<Integer> shortestPath;
+    private Stack<Node> shortestPath;
     private Animation normal;
 
     public Ghost(int row,int column,String keyName,int numberOfFrames,int fps,String format){
         super(row,column,keyName,numberOfFrames,fps,format,TYPE.GHOST);
-        shortestPath = new Stack<Integer>();
+        shortestPath = new Stack<Node>();
     }
 
-    public Stack<Integer> getShortestPath() {
+    public Stack<Node> getShortestPath() {
         return shortestPath;
     }
 
-    public void setShortestPath(Stack<Integer> shortestPath) {
+    public void setShortestPath(Stack<Node> shortestPath) {
         this.shortestPath = shortestPath;
     }
 

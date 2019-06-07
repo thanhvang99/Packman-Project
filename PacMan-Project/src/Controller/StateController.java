@@ -2,11 +2,19 @@ package Controller;
 
 import Entity.State;
 
-public class StateController {
-    private State state;
+public abstract class StateController {
 
-    public StateController(State state){
+    protected State state;
+
+    public StateController(State state) {
         this.state = state;
-        state.add(this);
+    }
+
+    public abstract void updateState();
+
+    public abstract boolean checkInput();
+
+    public void setCurrentController(StateController stateController) {
+        State.currentStateController = stateController;
     }
 }

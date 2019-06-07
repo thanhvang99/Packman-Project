@@ -1,4 +1,6 @@
 package Controller;
 
-public class EntityController {
+
+public abstract class EntityController extends ObjectController{
+    public abstract void move();
 }

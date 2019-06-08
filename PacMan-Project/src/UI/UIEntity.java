@@ -1,11 +1,7 @@
 package UI;
 
 
-import Entity.Animation;
-import Entity.DrawableObject;
-import Entity.Graph;
-import Entity.Node;
-import org.lwjgl.Sys;
+import Entity.*;
 
 import java.util.ArrayList;
 
@@ -14,39 +10,44 @@ import static java.lang.Math.sin;
 import static org.lwjgl.opengl.GL11.*;
 import static org.newdawn.slick.opengl.renderer.SGL.GL_QUADS;
 
-public class UIEntity {
-    private ArrayList<DrawableObject> objects;
+public class UIEntity extends UIState{
+    private ArrayList<Ghost> listGhosts;
     private Graph graph;
+    private Entity pac;
 
-    public UIEntity(ArrayList<DrawableObject> objects,Graph graph){
+
+    public UIEntity(Entity pac,ArrayList<Ghost> listGhosts, Graph graph){
         super();
         this.graph = graph;
-        this.objects = objects;
+        this.listGhosts = listGhosts;
+        this.pac = pac;
 
-
-        for( DrawableObject o : objects ){
-            o.addUI(this);
-        }
+        GameObject.addUI(this);
 
     }
     public void render(){
         // Render entities
-        for ( DrawableObject o : objects ){
-            Animation animation = o.getAnimation();
+        for (  Ghost g : listGhosts ){
+            Animation animation = g.getAnimation();
             animation.getFrames()[animation.getPointer()].bind();
-            draw(o);
+            draw(g);
         }
+
 
         // Render Graph
         Node[][] nodes = graph.getNodes();
         for(int i=0;i<graph.getRow();i++){
-            for(int j=0;j<graph.getColumn();j++){
+            for(int j=0;j<graph.getColumn();j++) {
                 Animation animation = nodes[i][j].getAnimation();
                 animation.getFrames()[animation.getPointer()].bind();
-                if( nodes[i][j].getType() == Node.TYPE.DOT ) drawCircleOutline(nodes[i][j]);
-                else draw(nodes[i][j]);
+                if (nodes[i][j].getType() == Node.TYPE.DOT) drawCircleOutline(nodes[i][j]);
+                else if( nodes[i][j].getType() == GameObject.TYPE.WALL ) draw(nodes[i][j]);
             }
         }
+        // Render Pac
+        Animation animation = pac.getAnimation();
+        animation.getFrames()[animation.getPointer()].bind();
+        draw(pac);
     }
      private void draw(DrawableObject e){
         int x_pixel = e.getColumn() * 30;

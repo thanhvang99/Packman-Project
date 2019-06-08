@@ -1,16 +1,13 @@
 package App;
 
-import Controller.GhostController;
-import Controller.GraphController;
-import Controller.PacController;
-import Entity.*;
-import UI.UIEntity;
+import Controller.MenuStateController;
+import Entity.GameObject;
+import Entity.State;
+import UI.UIMenu;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-
-import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -25,27 +22,30 @@ public class Main {
 
     }
     private static void init(){
-        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
+//        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
+//
+//        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
+//        Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
+//        Entity ghost1 = new Ghost(19,0,"ghost",3,3,"gif");
+//        pac.setSpeed(2);
+//        ghost.setSpeed(1);
+//        ghost1.setSpeed(1);
+//
+//
+//        listOfGhosts.add((Ghost)ghost);
+//        listOfGhosts.add((Ghost)ghost1);
+//
+//        Graph graph = new Graph("maze.txt");
+//
+//
+//
+//        new UIEntity(pac,listOfGhosts,graph);
+//        new PacController(pac);
+//        new GraphController(graph,listOfGhosts,,pac);
+//        new GhostController(listOfGhosts);
 
-        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
-        Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
-        Entity ghost1 = new Ghost(19,0,"ghost",3,3,"gif");
-        pac.setSpeed(2);
-        ghost.setSpeed(1);
-        ghost1.setSpeed(1);
-
-
-        listOfGhosts.add((Ghost)ghost);
-        listOfGhosts.add((Ghost)ghost1);
-
-        Graph graph = new Graph("maze.txt");
-
-
-
-        new UIEntity(pac,listOfGhosts,graph);
-        new PacController(pac);
-        new GraphController(graph,listOfGhosts,pac);
-        new GhostController(listOfGhosts);
+        UIMenu uiMenu = new UIMenu(1,"menu",1,"jpg");
+        MenuStateController menuStateController = new MenuStateController(uiMenu);
     }
     private static void setUpWindow(){
         try {
@@ -74,6 +74,8 @@ public class Main {
 
             GameObject.notifyController();
             GameObject.notifyUI();
+            State.notifyUI();
+            State.notifyStateController();
             Display.update();
             Display.sync(60);
 

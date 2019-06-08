@@ -17,10 +17,7 @@ public class Node extends DrawableObject{
     }
     public Node(int row,int column,int valueFromText){
         super(row,column,30,30,valueFromText == 0 ? TYPE.DOT : TYPE.WALL);
-        switch(getType()){
-            case WALL: setAnimation("wall",1,1,"png");setMultipleNumber(3); break;
-            case DOT: setAnimation("dot",1,1,"png");break;
-        }
+        setType(getType());
     }
 
     @Override
@@ -36,6 +33,15 @@ public class Node extends DrawableObject{
     @Override
     public Rectangle getRect() {
         return new Rectangle(getX_pixel(),getY_pixel(),getWidth(),getHeight());
+    }
+    @Override
+    public void setType(TYPE type){
+        super.setType(type);
+        switch(type){
+            case WALL: setAnimation("wall",1,1,"png");setMultipleNumber(3); break;
+            case DOT: setAnimation("dot",1,1,"png");break;
+            case CHERRY: setAnimation("cherry",1,1,"png"); break;
+        }
     }
 }
 

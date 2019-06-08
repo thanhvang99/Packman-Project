@@ -8,14 +8,11 @@ import java.security.Provider;
 import java.util.ArrayList;
 
 public class GhostController extends EntityController{
-    private long lastTime,currentTime,delta;
-    private Graph graph;
     private ArrayList<Ghost> list;
 
-    public GhostController(ArrayList<Ghost> list, Graph g){
+    public GhostController(ArrayList<Ghost> list){
         this.list = list;
         GameObject.addController(this);
-        this.graph = g;
 
     }
     public void findWayToLive(){
@@ -31,23 +28,7 @@ public class GhostController extends EntityController{
         }
 
     }
-    public void findWayToLiveNew(){
-        for( Ghost g : list ){
-
-            g.setDirection(g.getDirection().RandomizeDirection());
-            g.setPreviousX_pixel(g.getX_pixel());
-            g.setPreviousY_pixel(g.getY_pixel());
-
-            move(g);
-            if (g.collisedWithWall) {
-                g.setX_pixel(g.getPreviousY_pixel());
-                g.setY_pixel(g.getPreviousY_pixel());
-                g.collisedWithWall = false;
-            }
-        }
-    }
-    public void findShortestPath() {
-        for( Ghost g : list ){
+    public void findShortestPath(Ghost g) {
             if( !g.getShortestPath().isEmpty() ){
                 Node nextNode = g.getShortestPath().peek();
                 Node currentNode = new Node(g.getRow(),g.getColumn(), GameObject.TYPE.GHOST);
@@ -58,7 +39,6 @@ public class GhostController extends EntityController{
                 g.setDirection(Entity.DIRECTION.STAND);
             }
             move(g);
-        }
     }
     private void guessNextMove(Ghost g){
         g.getShortestPath().pop();
@@ -82,14 +62,10 @@ public class GhostController extends EntityController{
     }
     @Override
     public void update() {
-//        currentTime = GameService.getTimeInMillisecond();
-//        delta += currentTime - lastTime;
-//        if( delta >= 10000 ) {
-//            delta = 0;
-            findWayToLive();
-//        }
-//        findShortestPath();
-//        findWayToLiveNew();
-//        lastTime = currentTime;
+        for( Ghost g : list ){
+            if ( g.getState() != Ghost.STATE.SCARY ) {
+                findShortestPath(g);
+            }
+        }
     }
 }

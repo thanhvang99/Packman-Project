@@ -7,6 +7,7 @@ import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;
 
 public abstract class GameObject {
+    private boolean isDied;
     private static int Score = 0;
     private static ArrayList<ObjectController> objectControllers = new ArrayList<ObjectController>();
     private static ArrayList<UIGame> UIObjects = new ArrayList<UIGame>();
@@ -15,7 +16,7 @@ public abstract class GameObject {
     private int previousRow,previousColumn;
     public boolean collisedWithWall = false;
     public enum TYPE{
-        GHOST,PAC,WALL,DOT,NORMAL;
+        GHOST,PAC,WALL,DOT,NORMAL,CHERRY;
 
     }
 
@@ -158,4 +159,12 @@ public abstract class GameObject {
     }
     public static void setScore(int num){Score = num;}
     public static int getScore(){return Score;}
+
+    public void setDied(boolean died) {
+        isDied = died;
+    }
+
+    public boolean isDied() {
+        return isDied;
+    }
 }

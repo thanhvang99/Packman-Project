@@ -2,11 +2,13 @@ package Controller;
 
 import Entity.*;
 import edu.princeton.cs.algs4.Stack;
+import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GraphController extends ObjectController{
+    private long currentTime,lastTime,delta;
     private BreathFirstPath bfp;
     private boolean isPacMove = false;
     private Graph graph;
@@ -15,6 +17,9 @@ public class GraphController extends ObjectController{
     private int previousRow,previousColumn;
 
     public GraphController(Graph graph, ArrayList<Ghost> list, Entity pac){
+        lastTime = Sys.getTime();
+        currentTime = 0;
+        delta = 0;
         this.graph = graph;
         this.listGhosts = list;
         this.pac = pac;
@@ -23,20 +28,20 @@ public class GraphController extends ObjectController{
 
     @Override
     public void update() {
-        try {
-            check(pac,listGhosts);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("check");
-        }
+        check(pac,listGhosts);
         updateShortestPath();
+        randomizeCherry(5);
     }
     // check collision && update new Position
     public void check(GameObject o,ArrayList<Ghost> ghosts) throws ArrayIndexOutOfBoundsException{
+        checkGhost(ghosts,o);
+        checkPac(ghosts,o);
+    }
+    public void checkPac(ArrayList<Ghost> ghosts,GameObject o){
+        // Check PacMan vs Maze
         Node[][] nodes = graph.getNodes();
         int row = o.getRow();
         int column = o.getColumn();
-
-        // Check PacMan vs Maze
         for(int i=row-1;i<=row+1;i++){
             for(int j=column-1;j<=column+1;j++){
                 if( i!=row || j!=column ){
@@ -47,6 +52,7 @@ public class GraphController extends ObjectController{
                                     o.setX_pixel(o.getPreviousX_pixel());
                                     o.setY_pixel(o.getPreviousY_pixel());
                                     break;
+                                case CHERRY:
                                 case DOT:
                                 case NORMAL:
                                     Random r = new Random();
@@ -55,8 +61,13 @@ public class GraphController extends ObjectController{
                                     if (nextObject.getRect().contains(currentObject.getRect())) {
                                         if( nextObject.getType() == GameObject.TYPE.DOT ){
                                             GameObject.setScore(GameObject.getScore() + r.nextInt(10));
+                                        }else if( nextObject.getType() == GameObject.TYPE.CHERRY ){
+                                            for( Ghost g : ghosts ){
+                                                g.setState(Ghost.STATE.SCARY);
+                                            }
                                         }
-                                        // Update dot --> normal
+
+                                        // Update dot,cherry --> normal
                                         nextObject.setType(GameObject.TYPE.NORMAL);
 
                                         // Update possition
@@ -69,7 +80,14 @@ public class GraphController extends ObjectController{
                 }
             }
         }
+
+    }
+    public void checkGhost(ArrayList<Ghost> ghosts,GameObject o){
         // Check Ghost && update possition
+        Node[][] nodes = graph.getNodes();
+        int row = o.getRow();
+        int column = o.getColumn();
+
         for(Ghost g : ghosts) {
             row = g.getRow();
             column = g.getColumn();
@@ -85,6 +103,7 @@ public class GraphController extends ObjectController{
                                         break;
                                     case DOT:
                                     case NORMAL:
+                                    case CHERRY:
                                         GameObject nextObject = nodes[i][j];
                                         GameObject currentObject = g;
                                         // Update possition
@@ -92,7 +111,6 @@ public class GraphController extends ObjectController{
                                             g.setUpdatePath(true);
                                             currentObject.setColumn(nextObject.getColumn());
                                             currentObject.setRow(nextObject.getRow());
-                                            g.setDirection(g.getDirection().RandomizeDirection());
                                         }
                                 }
                             }
@@ -103,10 +121,12 @@ public class GraphController extends ObjectController{
             // check collise pac
             if( g.getColumn() == pac.getColumn() && g.getRow() == pac.getRow() ){
                 g.setDirection(Entity.DIRECTION.STAND);
+                pac.setDied(true);
             }
         }
+
     }
-    private void updateShortestPath(){
+    public void updateShortestPath(){
         for( Ghost g : listGhosts ){
             if( g.isUpdatePath() ) {
                 bfp = new BreathFirstPath(graph, new Node(g.getRow(), g.getColumn(), GameObject.TYPE.GHOST));
@@ -117,6 +137,29 @@ public class GraphController extends ObjectController{
                 g.setUpdatePath(false);
             }
         }
+    }
+    public void randomizeCherry(int time){
+        boolean isRandom = false;
+        currentTime = Sys.getTime();
+        delta += (currentTime-lastTime);
+        if( delta >= time*1000 ){
+            delta = 0;
+            Random r = new Random();
+            while(!isRandom) {
+                System.out.println("check");
+                int rColumn = r.nextInt(graph.getColumn());
+                int rRow = r.nextInt(graph.getRow());
+                switch (graph.getNodes()[rRow][rColumn].getType()) {
+                    case WALL:
+                    case DOT:
+                        break;
+                    default:
+                        graph.getNodes()[rRow][rColumn].setType(GameObject.TYPE.CHERRY);
+                        isRandom = true;
+                }
+            }
+        }
+        lastTime = currentTime;
     }
 
 

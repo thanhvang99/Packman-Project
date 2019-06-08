@@ -46,7 +46,8 @@ public class UIGame {
                 Animation animation = nodes[i][j].getAnimation();
                 animation.getFrames()[animation.getPointer()].bind();
                 if( nodes[i][j].getType() == GameObject.TYPE.DOT ) drawCircleOutline(nodes[i][j]);
-                else if (nodes[i][j].getType() == GameObject.TYPE.WALL) draw(nodes[i][j]);
+                else if (nodes[i][j].getType() == GameObject.TYPE.WALL) draw(nodes[i][j],30,30);
+                else if ( nodes[i][j].getType() == GameObject.TYPE.CHERRY ) draw(nodes[i][j],75,75);
             }
         }
 
@@ -56,22 +57,20 @@ public class UIGame {
                 DrawableObject drawObject = (DrawableObject) o;
                 Animation animation = drawObject.getAnimation();
                 animation.getFrames()[animation.getPointer()].bind();
-                draw(drawObject);
+                draw(drawObject,o.getWidth(),o.getHeight());
             }
         }
         // Render Pac
         Animation animation = pac.getAnimation();
         animation.getFrames()[animation.getPointer()].bind();
-        draw(pac);
+        draw(pac,pac.getWidth(),pac.getHeight());
 
 
 
     }
-     private void draw(DrawableObject e){
+     private void draw(DrawableObject e,int width,int height){
         int x_pixel = e.getX_pixel();
         int y_pixel = e.getY_pixel();
-        int width = e.getWidth();
-        int height = e.getHeight();
         int multipleNumber = e.getMultipleNumber();
         glBegin(GL_QUADS);
         glTexCoord2d(0, 0);

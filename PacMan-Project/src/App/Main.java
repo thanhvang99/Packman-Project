@@ -56,7 +56,7 @@ public class Main {
         new UIGame(pac,listOfGhosts,graph);
         new PacController(pac);
         new GraphController(graph,listOfGhosts,pac);
-        new GhostController(listOfGhosts,graph);
+        new GhostController(listOfGhosts);
 
     }
     private static void setUpWindow(){

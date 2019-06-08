@@ -1,5 +1,6 @@
 package App;
 
+import Entity.Node;
 import org.lwjgl.Sys;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -16,13 +17,8 @@ public class GameService {
             e.printStackTrace();
         }
         return null;
-
     }
     public static long getTimeInMillisecond(){
         return Sys.getTime()*1000/Sys.getTimerResolution();
     }
 }
-// Hello Thuan
-// Hello Again
-// test test test
-// More and More

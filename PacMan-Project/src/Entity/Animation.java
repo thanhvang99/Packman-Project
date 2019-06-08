@@ -1,19 +1,23 @@
 package Entity;
 
 import App.GameService;
+import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.opengl.Texture;
-public class Animation extends Game {
+public class Animation extends GameObject {
     private long currentTime;
     private long lastTime;
     private long delta;
+    private int pointer;
     private Texture[] frames;
-    public Animation(int amountOfFrames,String key,String format){
+    private int fps;
+    public Animation(int amountOfFrames,int fps,String key,String format){
+        lastTime = GameService.getTimeInMillisecond();
         currentTime = 0;
-        lastTime = 0;
         delta = 0;
+        this.fps = fps;
         frames = new Texture[amountOfFrames];
         for(int i=0;i<amountOfFrames;i++){
-            frames[i] = GameService.loadTexture(key,format);
+            frames[i] = GameService.loadTexture(i+"_"+key,format);
         }
 
     }
@@ -32,8 +36,6 @@ public class Animation extends Game {
     public int getPointer() {
         return pointer;
     }
-
-    private int pointer;
 
     public long getCurrentTime() {
         return currentTime;
@@ -55,7 +57,20 @@ public class Animation extends Game {
         this.lastTime = lastTime;
     }
 
+    public int getFps() {
+        return fps;
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
+    }
+
     public void setDelta(long delta) {
         this.delta = delta;
+    }
+
+    @Override
+    public Rectangle getRect() {
+        return null;
     }
 }

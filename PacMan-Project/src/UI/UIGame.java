@@ -3,7 +3,10 @@ package UI;
 
 import Entity.*;
 import org.lwjgl.Sys;
+import org.newdawn.slick.TrueTypeFont;
 
+import java.awt.*;
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 
 import static java.lang.Math.cos;
@@ -11,19 +14,30 @@ import static java.lang.Math.sin;
 import static org.lwjgl.opengl.GL11.*;
 import static org.newdawn.slick.opengl.renderer.SGL.GL_QUADS;
 
-public class UIEntity {
+public class UIGame {
     private Entity pac;
     private ArrayList<Ghost> ghosts;
     private Graph graph;
+    private Font awtFont;
+    private TrueTypeFont font;
 
-    public UIEntity(Entity pac,ArrayList<Ghost> ghosts, Graph graph){
+    public UIGame(Entity pac, ArrayList<Ghost> ghosts, Graph graph){
         super();
         this.pac = pac;
         this.graph = graph;
         this.ghosts = ghosts;
         GameObject.addUI(this);
+        awtFont = new Font("Times New Roman", Font.BOLD, 20);
+        font = new TrueTypeFont(awtFont,false);
     }
     public void render(){
+
+        // Render Score
+        org.newdawn.slick.Color.white.bind();
+        font.drawString(400,670,"Score: "+GameObject.getScore(), org.newdawn.slick.Color.yellow);
+
+        glColor3f(1,1,1);
+
 
         // Render Graph
         Node[][] nodes = graph.getNodes();
@@ -69,6 +83,7 @@ public class UIEntity {
         glTexCoord2d(0, multipleNumber);
         glVertex2i(x_pixel, y_pixel + height);
         glEnd();
+
     }
     private void drawCircleOutline(DrawableObject e)
 

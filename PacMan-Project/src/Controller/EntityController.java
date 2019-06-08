@@ -26,7 +26,7 @@ public abstract class EntityController extends ObjectController{
 
     }
     public boolean isInWindow(Entity e){
-        return new Rectangle(10,10, Display.getWidth()-30,Display.getHeight()-20).contains(e.getRect());
+        return new Rectangle(10,10, 530-30,670-20).contains(e.getRect());
     }
 
 

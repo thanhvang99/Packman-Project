@@ -5,12 +5,24 @@ import Controller.ObjectController;
 import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;
-    private int speed = 1;
+    private int speed = 2;
     public enum DIRECTION{
         LEFT,UP,RIGHT,DOWN,STAND;
+        public DIRECTION RandomizeDirection(){
+            Random r = new Random();
+            switch(r.nextInt(3)){
+                case 0: return LEFT;
+                case 1: return UP;
+                case 2: return DOWN;
+                case 3: return RIGHT;
+            }
+            return null;
+
+        }
     }
     private DIRECTION direction = DIRECTION.LEFT;
 

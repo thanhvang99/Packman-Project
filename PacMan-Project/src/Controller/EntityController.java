@@ -7,6 +7,8 @@ import org.lwjgl.util.Rectangle;
 
 public abstract class EntityController extends ObjectController{
     public void move(Entity e){
+        e.setPreviousX_pixel(e.getX_pixel());
+        e.setPreviousY_pixel(e.getY_pixel());
         switch (e.getDirection()) {
             case LEFT:
                 e.setX_pixel(e.getX_pixel() - e.getSpeed());

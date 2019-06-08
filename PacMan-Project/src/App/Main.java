@@ -32,7 +32,7 @@ public class Main {
         ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
 
         Entity pac = new PacMan(3,3,"pac",11,22,"gif");
-        Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
+        Entity ghost = new Ghost(19,3,"ghost",3,3,"gif");
         Entity ghost1 = new Ghost(0,16,"ghost",3,3,"gif");
         Entity ghost2 = new Ghost(21,16,"ghost",3,3,"gif");
         Entity ghost3 = new Ghost(19,3,"ghost",3,3,"gif");

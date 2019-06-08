@@ -16,16 +16,18 @@ public class GhostController extends EntityController{
         this.list = list;
         GameObject.addController(this);
         this.graph = g;
-        delta = 0;
-        currentTime = 0;
-        lastTime = GameService.getTimeInMillisecond();
 
     }
     public void findWayToLive(){
         for( Ghost g : list ){
-            Node node = g.getPreviousNode();
-            g.setDirection(Entity.DIRECTION.DOWN);
-            System.out.println(g.getDirection().RandomizeDirection());
+            move(g);
+            if( !isInWindow(g) ){
+                g.setX_pixel(g.getPreviousX_pixel());
+                g.setY_pixel(g.getPreviousY_pixel());
+            }else{
+
+            }
+
         }
 
     }

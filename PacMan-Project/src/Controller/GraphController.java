@@ -48,12 +48,14 @@ public class GraphController extends ObjectController{
                                     o.setY_pixel(o.getPreviousY_pixel());
                                     break;
                                 case DOT:
-                                    Random r = new Random();
-                                    GameObject.setScore(GameObject.getScore()+r.nextInt(5)+1);
                                 case NORMAL:
+                                    Random r = new Random();
                                     GameObject nextObject = nodes[i][j];
                                     GameObject currentObject = o;
                                     if (nextObject.getRect().contains(currentObject.getRect())) {
+                                        if( nextObject.getType() == GameObject.TYPE.DOT ){
+                                            GameObject.setScore(GameObject.getScore() + r.nextInt(10));
+                                        }
                                         // Update dot --> normal
                                         nextObject.setType(GameObject.TYPE.NORMAL);
 
@@ -78,7 +80,9 @@ public class GraphController extends ObjectController{
                             if (nodes[i][j].getRect().intersects(g.getRect())) {
                                 switch (nodes[i][j].getType()) {
                                     case WALL:
-                                        g.collisedWithWall = true;
+                                        g.setX_pixel(g.getPreviousX_pixel());
+                                        g.setY_pixel(g.getPreviousY_pixel());
+                                        break;
                                     case DOT:
                                     case NORMAL:
                                         GameObject nextObject = nodes[i][j];
@@ -88,6 +92,7 @@ public class GraphController extends ObjectController{
                                             g.setUpdatePath(true);
                                             currentObject.setColumn(nextObject.getColumn());
                                             currentObject.setRow(nextObject.getRow());
+                                            g.setDirection(g.getDirection().RandomizeDirection());
                                         }
                                 }
                             }

@@ -15,8 +15,6 @@ public class PacController extends EntityController{
     }
     @Override
     public void update() {
-        e.setPreviousX_pixel(e.getX_pixel());
-        e.setPreviousY_pixel(e.getY_pixel());
         receiveInput();
         move(e);
         if( !isInWindow(e) ){

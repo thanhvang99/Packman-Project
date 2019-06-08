@@ -14,7 +14,7 @@ public abstract class Entity extends DrawableObject{
         LEFT,UP,RIGHT,DOWN,STAND;
         public DIRECTION RandomizeDirection(){
             Random r = new Random();
-            switch(r.nextInt(3)){
+            switch(r.nextInt(4)){
                 case 0: return LEFT;
                 case 1: return UP;
                 case 2: return DOWN;

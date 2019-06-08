@@ -4,7 +4,6 @@ import edu.princeton.cs.algs4.Stack;
 import org.lwjgl.util.Rectangle;
 
 public class Ghost extends Entity{
-    private Node previousNode;
     private Stack<Node> shortestPath;
     private Animation normal;
     private boolean isUpdatePath = true;
@@ -20,12 +19,11 @@ public class Ghost extends Entity{
 
     public void setShortestPath(Stack<Node> shortestPath) {
         this.shortestPath = shortestPath;
-        previousNode = shortestPath.peek();
     }
 
     @Override
     public Rectangle getRect() {
-        return new Rectangle(getX_pixel(),getY_pixel(),getWidth(),getHeight());
+        return new Rectangle(getX_pixel()+5,getY_pixel()+5,getWidth()-10,getHeight()-10);
     }
 
     @Override
@@ -43,11 +41,5 @@ public class Ghost extends Entity{
         isUpdatePath = updatePath;
     }
 
-    public Node getPreviousNode() {
-        return previousNode;
-    }
-    public void setPreviousNode(Node node){
-        previousNode = node;
-    }
 }
 

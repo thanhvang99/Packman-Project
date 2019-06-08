@@ -5,14 +5,24 @@ import Controller.ObjectController;
 import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;
-    private Animation left,up,down,right;
-
-    private int speed = 3;
+    private int speed = 2;
     public enum DIRECTION{
         LEFT,UP,RIGHT,DOWN,STAND;
+        public DIRECTION RandomizeDirection(){
+            Random r = new Random();
+            switch(r.nextInt(3)){
+                case 0: return LEFT;
+                case 1: return UP;
+                case 2: return DOWN;
+                case 3: return RIGHT;
+            }
+            return null;
+
+        }
     }
     private DIRECTION direction = DIRECTION.LEFT;
 
@@ -20,34 +30,8 @@ public abstract class Entity extends DrawableObject{
     public Entity(int row,int column,String keyName,int numberOfFrame,int fps,String format,GameObject.TYPE type){
         super(row,column,25,25,type);
 
-        // Set up default
         setAnimation(keyName,numberOfFrame,fps,format);
 
-    }
-    public void setAnimation(String keyName,int numberOfFrame,int fps,String format){
-        ArrayList<Animation> animations = new ArrayList<Animation>();
-        left = new Animation(numberOfFrame,fps,keyName+"_left",format);
-        right = new Animation(numberOfFrame,fps,keyName+"_right",format);
-        up= new Animation(numberOfFrame,fps,keyName+"_up",format);
-        down= new Animation(numberOfFrame,fps,keyName+"_down",format);
-
-        animations.add(left);
-        animations.add(right);
-        animations.add(up);
-        animations.add(down);
-
-        ObjectController controller = new AnimationController(animations);
-    }
-
-    public Animation getAnimation() {
-        switch(direction){
-            case LEFT: return left;
-            case RIGHT: return right;
-            case UP: return up;
-            case DOWN: return down;
-            default:
-                return null;
-        }
     }
 
     public DIRECTION getDirection() {
@@ -64,4 +48,5 @@ public abstract class Entity extends DrawableObject{
     public int getSpeed() {
         return speed;
     }
+
 }

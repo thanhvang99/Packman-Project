@@ -1,16 +1,18 @@
 package Entity;
 
 import Controller.ObjectController;
-import UI.UIEntity;
+import UI.UIGame;
 import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
 
 public abstract class GameObject {
+    private static int Score = 0;
     private static ArrayList<ObjectController> objectControllers = new ArrayList<ObjectController>();
-    private static ArrayList<UIEntity> UIObjects = new ArrayList<UIEntity>();
+    private static ArrayList<UIGame> UIObjects = new ArrayList<UIGame>();
     private int row,column,width,height,x_pixel,y_pixel,multipleNumber=1;
     private int previousX_pixel,previousY_pixel;
+    private int previousRow,previousColumn;
     public boolean collisedWithWall = false;
     public enum TYPE{
         GHOST,PAC,WALL,DOT,NORMAL;
@@ -31,7 +33,7 @@ public abstract class GameObject {
     public static void addController(ObjectController controller){
         objectControllers.add(controller);
     }
-    public static void addUI(UIEntity ui){
+    public static void addUI(UIGame ui){
         UIObjects.add(ui);
     }
     public static void notifyController(){
@@ -41,7 +43,7 @@ public abstract class GameObject {
 
     }
     public static void notifyUI(){
-        for( UIEntity entity : UIObjects ){
+        for( UIGame entity : UIObjects ){
             entity.render();
         }
 
@@ -52,7 +54,7 @@ public abstract class GameObject {
         GameObject.objectControllers = objectControllers;
     }
 
-    public static void setUIObjects(ArrayList<UIEntity> UIObjects) {
+    public static void setUIObjects(ArrayList<UIGame> UIObjects) {
         GameObject.UIObjects = UIObjects;
     }
 
@@ -84,7 +86,7 @@ public abstract class GameObject {
         this.multipleNumber = multipleNumber;
     }
 
-    public static ArrayList<UIEntity> getUIObjects() {
+    public static ArrayList<UIGame> getUIObjects() {
         return UIObjects;
     }
 
@@ -138,4 +140,22 @@ public abstract class GameObject {
     public int getPreviousX_pixel() {
         return previousX_pixel;
     }
+
+    public void setPreviousRow(int previousRow) {
+        this.previousRow = previousRow;
+    }
+
+    public void setPreviousColumn(int previousColumn) {
+        this.previousColumn = previousColumn;
+    }
+
+    public int getPreviousRow() {
+        return previousRow;
+    }
+
+    public int getPreviousColumn() {
+        return previousColumn;
+    }
+    public static void setScore(int num){Score = num;}
+    public static int getScore(){return Score;}
 }

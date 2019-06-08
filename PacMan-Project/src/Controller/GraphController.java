@@ -1,61 +1,119 @@
 package Controller;
 
-import Entity.GameObject;
-import Entity.Graph;
-import Entity.Node;
+import Entity.*;
+import edu.princeton.cs.algs4.Stack;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class GraphController extends ObjectController {
-    private int previousX_pixel,previousY_pixel;
+public class GraphController extends ObjectController{
+    private BreathFirstPath bfp;
+    private boolean isPacMove = false;
     private Graph graph;
-    private ArrayList<GameObject> listGameObject;
+    private ArrayList<Ghost> listGhosts;
+    private Entity pac;
+    private int previousRow,previousColumn;
 
-    public GraphController(Graph graph,ArrayList<GameObject> list){
+    public GraphController(Graph graph, ArrayList<Ghost> list, Entity pac){
         this.graph = graph;
-        this.listGameObject = list;
+        this.listGhosts = list;
+        this.pac = pac;
         GameObject.addController(this);
     }
 
     @Override
     public void update() {
-        for( GameObject o : listGameObject ) {
-            try {
-                checkCollise(o);
-            } catch (ArrayIndexOutOfBoundsException e) {
-
-            }
+        try {
+            check(pac,listGhosts);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("check");
         }
+        updateShortestPath();
     }
-    public void checkCollise(GameObject o) throws ArrayIndexOutOfBoundsException{
+    // check collision && update new Position
+    public void check(GameObject o,ArrayList<Ghost> ghosts) throws ArrayIndexOutOfBoundsException{
         Node[][] nodes = graph.getNodes();
         int row = o.getRow();
         int column = o.getColumn();
+
+        // Check PacMan vs Maze
         for(int i=row-1;i<=row+1;i++){
             for(int j=column-1;j<=column+1;j++){
                 if( i!=row || j!=column ){
-                    if( nodes[i][j].getRect().intersects(o.getRect())){
-                        switch(nodes[i][j].getType()){
-                            case WALL :
-                                o.setX_pixel(o.getPreviousX_pixel());
-                                o.setY_pixel(o.getPreviousY_pixel());
-                                break;
-                            case DOT:
-                                o.setType(GameObject.TYPE.NORMAL);
-                            case NORMAL:
-                                updatePossition(o,nodes[i][j]);
-                                System.out.println(o.getRow()+","+o.getColumn());
-                                break;
+                    if( i>=0 && i<graph.getRow() && j>=0 &&j<graph.getColumn() ) {
+                        if (nodes[i][j].getRect().intersects(o.getRect())) {
+                            switch (nodes[i][j].getType()) {
+                                case WALL:
+                                    o.setX_pixel(o.getPreviousX_pixel());
+                                    o.setY_pixel(o.getPreviousY_pixel());
+                                    break;
+                                case DOT:
+                                    Random r = new Random();
+                                    GameObject.setScore(GameObject.getScore()+r.nextInt(5)+1);
+                                case NORMAL:
+                                    GameObject nextObject = nodes[i][j];
+                                    GameObject currentObject = o;
+                                    if (nextObject.getRect().contains(currentObject.getRect())) {
+                                        // Update dot --> normal
+                                        nextObject.setType(GameObject.TYPE.NORMAL);
+
+                                        // Update possition
+                                        currentObject.setColumn(nextObject.getColumn());
+                                        currentObject.setRow(nextObject.getRow());
+                                    }
+                            }
                         }
                     }
                 }
             }
         }
-    }
-    public void updatePossition(GameObject currentObject,GameObject nextObject ){
-        if( nextObject.getRect().contains(currentObject.getRect()) ){
-            currentObject.setColumn(nextObject.getColumn());
-            currentObject.setRow(nextObject.getRow());
+        // Check Ghost && update possition
+        for(Ghost g : ghosts) {
+            row = g.getRow();
+            column = g.getColumn();
+            for (int i = row - 1; i <= row + 1; i++) {
+                for (int j = column - 1; j <= column + 1; j++) {
+                    if (i != row || j != column) {
+                        if (i >= 0 && i < graph.getRow() && j >= 0 && j < graph.getColumn()) {
+                            if (nodes[i][j].getRect().intersects(g.getRect())) {
+                                switch (nodes[i][j].getType()) {
+                                    case WALL:
+                                        g.collisedWithWall = true;
+                                    case DOT:
+                                    case NORMAL:
+                                        GameObject nextObject = nodes[i][j];
+                                        GameObject currentObject = g;
+                                        // Update possition
+                                        if (nextObject.getRect().contains(currentObject.getRect())) {
+                                            g.setUpdatePath(true);
+                                            currentObject.setColumn(nextObject.getColumn());
+                                            currentObject.setRow(nextObject.getRow());
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // check collise pac
+            if( g.getColumn() == pac.getColumn() && g.getRow() == pac.getRow() ){
+                g.setDirection(Entity.DIRECTION.STAND);
+            }
         }
     }
+    private void updateShortestPath(){
+        for( Ghost g : listGhosts ){
+            if( g.isUpdatePath() ) {
+                bfp = new BreathFirstPath(graph, new Node(g.getRow(), g.getColumn(), GameObject.TYPE.GHOST));
+                g.setShortestPath(bfp.pathTo(new Node(pac.getRow(), pac.getColumn(), GameObject.TYPE.PAC)));
+                for (Node node : g.getShortestPath()) {
+//                System.out.print("-->"+node.getRow()+","+node.getColumn());
+                }
+                g.setUpdatePath(false);
+            }
+        }
+    }
+
+
 }
+

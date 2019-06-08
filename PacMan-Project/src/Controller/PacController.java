@@ -3,8 +3,10 @@ package Controller;
 import Entity.Entity;
 import Entity.GameObject;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.Rectangle;
 
-public class PacController extends EntityController {
+public class PacController extends EntityController{
     private Entity e;
 
     public PacController(Entity e){
@@ -13,30 +15,14 @@ public class PacController extends EntityController {
     }
     @Override
     public void update() {
-        move();
-    }
-
-    @Override
-    public void move() {
         e.setPreviousX_pixel(e.getX_pixel());
         e.setPreviousY_pixel(e.getY_pixel());
         receiveInput();
-        switch (e.getDirection()) {
-            case LEFT:
-                e.setX_pixel(e.getX_pixel() - e.getSpeed());
-                break;
-            case RIGHT:
-                e.setX_pixel(e.getX_pixel() + e.getSpeed());
-                break;
-            case UP:
-                e.setY_pixel(e.getY_pixel() - e.getSpeed());
-                break;
-            case DOWN:
-                e.setY_pixel(e.getY_pixel() + e.getSpeed());
-                break;
+        move(e);
+        if( !isInWindow(e) ){
+            e.setX_pixel(e.getPreviousX_pixel());
+            e.setY_pixel(e.getPreviousY_pixel());
         }
-
-
     }
     private void receiveInput(){
         while(Keyboard.next()){

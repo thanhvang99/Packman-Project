@@ -1,11 +1,5 @@
 package Entity;
 
-import Controller.AnimationController;
-import Controller.ObjectController;
-import org.lwjgl.util.Rectangle;
-
-import java.util.ArrayList;
-
 public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;
     private int speed = 1;

@@ -1,13 +1,10 @@
 package App;
 
-import Controller.BreathFirstPath;
 import Controller.GhostController;
 import Controller.GraphController;
 import Controller.PacController;
 import Entity.*;
 import UI.UIEntity;
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.Stack;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -49,7 +46,6 @@ public class Main {
         new PacController(pac);
         new GraphController(graph,listOfGhosts,pac);
         new GhostController(listOfGhosts);
-
     }
     private static void setUpWindow(){
         try {

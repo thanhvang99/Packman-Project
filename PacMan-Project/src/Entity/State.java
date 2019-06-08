@@ -3,22 +3,37 @@ package Entity;
 import Controller.StateController;
 import UI.UIState;
 
-public class State {
+public abstract class State {
+    private Animation background;
 
-    private boolean isDisplaying;
+    private static StateController currentStateController;
+    private static UIState currentUI;
 
-    //    public static State currentState;
-    public static StateController currentStateController;
-    public static UIState currentUI;
-
-//    private static List<UIState> listOfUIState;
-//    private static List<StateController> listOfStateController;
-
-    public boolean isDisplaying() {
-        return isDisplaying;
+    public static StateController getCurrentStateController() {
+        return currentStateController;
     }
 
-    public void setDisplaying(boolean displaying) {
-        isDisplaying = displaying;
+    public static UIState getCurrentUI() {
+        return currentUI;
+    }
+
+    public static void setCurrentStateController(StateController currentStateController) {
+        State.currentStateController = currentStateController;
+    }
+
+    public static void setCurrentUI(UIState currentUI) {
+        State.currentUI = currentUI;
+    }
+
+    public static void notifyUI(){
+        currentUI.render();
+    }
+
+    public static void notifyStateController(){
+        currentStateController.updateState();
+    }
+
+    public boolean isOn(){
+        return false;
     }
 }

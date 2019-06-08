@@ -12,7 +12,6 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -44,9 +43,9 @@ public class Main {
 
 
         listOfGhosts.add((Ghost)ghost);
-//        listOfGhosts.add((Ghost)ghost1);
-//        listOfGhosts.add((Ghost)ghost2);
-//        listOfGhosts.add((Ghost)ghost3);
+        listOfGhosts.add((Ghost)ghost1);
+        listOfGhosts.add((Ghost)ghost2);
+        listOfGhosts.add((Ghost)ghost3);
 
         Graph graph = new Graph("maze.txt");
 

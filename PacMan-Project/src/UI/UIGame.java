@@ -2,11 +2,9 @@ package UI;
 
 
 import Entity.*;
-import org.lwjgl.Sys;
 import org.newdawn.slick.TrueTypeFont;
 
 import java.awt.*;
-import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 
 import static java.lang.Math.cos;
@@ -53,11 +51,13 @@ public class UIGame {
 
         // Render ghost
         for ( GameObject o : ghosts ){
-            if( o instanceof DrawableObject ) {
-                DrawableObject drawObject = (DrawableObject) o;
-                Animation animation = drawObject.getAnimation();
-                animation.getFrames()[animation.getPointer()].bind();
-                draw(drawObject,o.getWidth(),o.getHeight());
+            if( !o.isDied() ) {
+                if (o instanceof DrawableObject) {
+                    DrawableObject drawObject = (DrawableObject) o;
+                    Animation animation = drawObject.getAnimation();
+                    animation.getFrames()[animation.getPointer()].bind();
+                    draw(drawObject, o.getWidth(), o.getHeight());
+                }
             }
         }
         // Render Pac

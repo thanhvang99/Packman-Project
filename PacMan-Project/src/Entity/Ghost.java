@@ -37,7 +37,7 @@ public class Ghost extends Entity{
     }
     public void setAnimation(){
         normal = new Animation(3,3,"ghost","gif");
-        scarry = new Animation( 8,8,"dieGhost","gif" );
+        scarry = new Animation( 6,6,"newDie","gif" );
         ArrayList<Animation> animations = new ArrayList<Animation>();
         animations.add(normal);
         animations.add(scarry);

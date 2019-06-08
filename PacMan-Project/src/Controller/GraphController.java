@@ -1,7 +1,6 @@
 package Controller;
 
 import Entity.*;
-import edu.princeton.cs.algs4.Stack;
 import org.lwjgl.Sys;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class GraphController extends ObjectController{
     public void update() {
         check(pac,listGhosts);
         updateShortestPath();
-        randomizeCherry(5);
+        randomizeCherry(6);
     }
     // check collision && update new Position
     public void check(GameObject o,ArrayList<Ghost> ghosts) throws ArrayIndexOutOfBoundsException{
@@ -121,7 +120,10 @@ public class GraphController extends ObjectController{
             // check collise pac
             if( g.getColumn() == pac.getColumn() && g.getRow() == pac.getRow() ){
                 g.setDirection(Entity.DIRECTION.STAND);
-                pac.setDied(true);
+                if( g.getState() == Ghost.STATE.NORMAL){
+                    pac.setDied(true);
+                }else
+                    g.setDied(true);
             }
         }
 

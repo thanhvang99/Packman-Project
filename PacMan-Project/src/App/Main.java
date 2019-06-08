@@ -1,6 +1,10 @@
 package App;
 
+import Controller.GhostController;
+import Controller.GraphController;
+import Controller.PacController;
 import Entity.*;
+import UI.UIEntity;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -38,10 +42,10 @@ public class Main {
 
 
 
-//        new UIEntity(pac,listOfGhosts,graph);
-//        new PacController(pac);
-//        new GraphController(graph,listOfGhosts,pac);
-//        new GhostController(listOfGhosts);
+        new UIEntity(pac,listOfGhosts,graph);
+        new PacController(pac);
+        new GraphController(graph,listOfGhosts,pac);
+        new GhostController(listOfGhosts);
     }
     private static void setUpWindow(){
         try {

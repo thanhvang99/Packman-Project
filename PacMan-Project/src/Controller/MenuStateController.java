@@ -2,7 +2,7 @@ package Controller;
 
 import Entity.*;
 import Helper.ButtonController;
-import UI.UIEntity;
+import UI.UIGame;
 import UI.UIMenu;
 import org.lwjgl.opengl.Display;
 
@@ -50,11 +50,11 @@ public class MenuStateController extends StateController {
 
 
 
-            State.setCurrentUI(new UIEntity(pac,listOfGhosts,graph));
+            State.setCurrentUI(new UIGame(pac,listOfGhosts,graph));
 
             new PacController(pac);
             new GraphController(graph,listOfGhosts,pac);
-            new GhostController(listOfGhosts);
+            new GhostController(listOfGhosts,graph);
 
         }
         if (exitController.isClicked()) {

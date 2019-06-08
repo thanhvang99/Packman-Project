@@ -1,12 +1,12 @@
 package Controller;
 
-import UI.UIEntity;
+import UI.UIGame;
 
 public class GameStateController {
 
-    private UIEntity uiEntity;
+    private UIGame uiEntity;
 
-    public GameStateController(UIEntity uiEntiity) {
+    public GameStateController(UIGame uiEntiity) {
 //        super(uiEntiity);
 //        setCurrentController(this);
 //

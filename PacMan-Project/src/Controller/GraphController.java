@@ -4,6 +4,7 @@ import Entity.*;
 import edu.princeton.cs.algs4.Stack;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GraphController extends ObjectController{
     private BreathFirstPath bfp;
@@ -27,11 +28,7 @@ public class GraphController extends ObjectController{
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("check");
         }
-        if( isPacMove ){
-            updateShortestPath();
-            isPacMove = false;
-        }
-
+        updateShortestPath();
     }
     // check collision && update new Position
     public void check(GameObject o,ArrayList<Ghost> ghosts) throws ArrayIndexOutOfBoundsException{
@@ -51,6 +48,8 @@ public class GraphController extends ObjectController{
                                     o.setY_pixel(o.getPreviousY_pixel());
                                     break;
                                 case DOT:
+                                    Random r = new Random();
+                                    GameObject.setScore(GameObject.getScore()+r.nextInt(5)+1);
                                 case NORMAL:
                                     GameObject nextObject = nodes[i][j];
                                     GameObject currentObject = o;
@@ -59,10 +58,8 @@ public class GraphController extends ObjectController{
                                         nextObject.setType(GameObject.TYPE.NORMAL);
 
                                         // Update possition
-                                        isPacMove = true;
                                         currentObject.setColumn(nextObject.getColumn());
                                         currentObject.setRow(nextObject.getRow());
-                                        break;
                                     }
                             }
                         }
@@ -70,7 +67,7 @@ public class GraphController extends ObjectController{
                 }
             }
         }
-        // check ghost && update possition
+        // Check Ghost && update possition
         for(Ghost g : ghosts) {
             row = g.getRow();
             column = g.getColumn();
@@ -81,16 +78,17 @@ public class GraphController extends ObjectController{
                             if (nodes[i][j].getRect().intersects(g.getRect())) {
                                 switch (nodes[i][j].getType()) {
                                     case WALL:
+                                        g.collisedWithWall = true;
                                     case DOT:
                                     case NORMAL:
                                         GameObject nextObject = nodes[i][j];
                                         GameObject currentObject = g;
                                         // Update possition
                                         if (nextObject.getRect().contains(currentObject.getRect())) {
+                                            g.setUpdatePath(true);
                                             currentObject.setColumn(nextObject.getColumn());
                                             currentObject.setRow(nextObject.getRow());
                                         }
-                                        break;
                                 }
                             }
                         }
@@ -102,16 +100,20 @@ public class GraphController extends ObjectController{
                 g.setDirection(Entity.DIRECTION.STAND);
             }
         }
-
     }
     private void updateShortestPath(){
         for( Ghost g : listGhosts ){
-            bfp = new BreathFirstPath(graph,new Node(g.getRow(),g.getColumn(), GameObject.TYPE.GHOST));
-            g.setShortestPath(bfp.pathTo(new Node(pac.getRow(),pac.getColumn(), GameObject.TYPE.PAC)));
-            for( Node node : g.getShortestPath() ){
+            if( g.isUpdatePath() ) {
+                bfp = new BreathFirstPath(graph, new Node(g.getRow(), g.getColumn(), GameObject.TYPE.GHOST));
+                g.setShortestPath(bfp.pathTo(new Node(pac.getRow(), pac.getColumn(), GameObject.TYPE.PAC)));
+                for (Node node : g.getShortestPath()) {
 //                System.out.print("-->"+node.getRow()+","+node.getColumn());
+                }
+                g.setUpdatePath(false);
             }
         }
     }
+
+
 }
 

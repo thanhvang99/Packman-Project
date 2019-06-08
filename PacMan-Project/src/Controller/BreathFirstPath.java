@@ -28,7 +28,7 @@ public class BreathFirstPath {
                     if (!marked[w.getRow()][w.getColumn()]) {
                         queue.enqueue(w);
                         marked[w.getRow()][w.getColumn()] = true;
-                        nodeTo[w.getRow()][w.getColumn()] = node;
+                        nodeTo[w.getRow()][w.getColumn()] = nextNode;
                     }
 
                 }
@@ -42,7 +42,7 @@ public class BreathFirstPath {
         if(!hasPathTo(target)){
             return null;
         }else{
-            for(Node x=target;x != source; x = nodeTo[x.getRow()][x.getColumn()]){
+            for(Node x=target;(x.getRow()!=source.getRow()||x.getColumn()!=source.getColumn()); x = nodeTo[x.getRow()][x.getColumn()]){
                 path.push(x);
             }
             path.push(source);
@@ -50,5 +50,6 @@ public class BreathFirstPath {
         }
     }
     private void reset(){
+
     }
 }

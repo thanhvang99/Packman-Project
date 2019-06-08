@@ -25,8 +25,14 @@ public class Main {
 
         Entity pac = new PacMan(3,3,"pac",11,22,"gif");
         Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
+        Entity ghost1 = new Ghost(19,0,"ghost",3,3,"gif");
+        pac.setSpeed(2);
+        ghost.setSpeed(1);
+        ghost1.setSpeed(1);
+
 
         listOfGhosts.add((Ghost)ghost);
+        listOfGhosts.add((Ghost)ghost1);
 
         Graph graph = new Graph("maze.txt");
 

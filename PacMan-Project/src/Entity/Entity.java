@@ -2,7 +2,7 @@ package Entity;
 
 public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;
-    private int speed = 2;
+    private int speed = 1;
     public enum DIRECTION{
         LEFT,UP,RIGHT,DOWN,STAND;
     }

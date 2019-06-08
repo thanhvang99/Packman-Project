@@ -1,10 +1,10 @@
 package App;
 
 
-import Controller.MenuStateController;
+import Controller.GameOverStateController;
 import Entity.GameObject;
 import Entity.State;
-import UI.UIMenu;
+import UI.UIGameOver;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -48,8 +48,11 @@ public class Main {
 //        new GraphController(graph,listOfGhosts,,pac);
 //        new GhostController(listOfGhosts);
 
-        UIMenu uiMenu = new UIMenu(1,"menu",1,"jpg");
-        MenuStateController menuStateController = new MenuStateController(uiMenu);
+//        UIMenu uiMenu = new UIMenu(1,"menu",1,"jpg");
+//        MenuStateController menuStateController = new MenuStateController(uiMenu);
+
+        UIGameOver uiMenu = new UIGameOver(1,"gameover",1,"jpg");
+        GameOverStateController menuController= new GameOverStateController(uiMenu);
 
 //        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
 //

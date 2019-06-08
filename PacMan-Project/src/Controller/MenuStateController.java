@@ -52,7 +52,6 @@ public class MenuStateController extends StateController {
 
             State.setCurrentUI(new UIGame(pac,listOfGhosts,graph));
 
-
             new PacController(pac);
             new GraphController(graph,listOfGhosts,pac);
             new GhostController(listOfGhosts,graph);

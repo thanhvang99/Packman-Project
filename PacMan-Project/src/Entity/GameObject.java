@@ -49,6 +49,10 @@ public abstract class GameObject {
         }
 
     }
+    public static void removeAll(){
+        objectControllers.clear();
+        UIObjects.clear();
+    }
     public static ArrayList<ObjectController> getObjectControllers(){return objectControllers;}
 
     public static void setObjectControllers(ArrayList<ObjectController> objectControllers) {

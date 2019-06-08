@@ -12,25 +12,18 @@ import java.util.ArrayList;
 public class GhostController extends EntityController{
     private ArrayList<Ghost> list;
     private long currentTime,lastTime,delta;
+    private long backToCurrentTime,backToLastTime,backToDelta;
 
     public GhostController(ArrayList<Ghost> list){
+
+        backToCurrentTime = 0;
+        backToLastTime = 0;
+        backToDelta = 0;
+
         currentTime = 0;
         delta = 0;
         this.list = list;
         GameObject.addController(this);
-
-    }
-    public void findWayToLive(){
-        for( Ghost g : list ){
-            move(g);
-            if( !isInWindow(g) ){
-                g.setX_pixel(g.getPreviousX_pixel());
-                g.setY_pixel(g.getPreviousY_pixel());
-            }else{
-
-            }
-
-        }
 
     }
     public void findShortestPath(Ghost g) {
@@ -71,12 +64,15 @@ public class GhostController extends EntityController{
             if( !g.isDied() ) {
                 lastTime = Sys.getTime();
                 if (g.getState() != Ghost.STATE.SCARY) {
+                    backToLastTime = Sys.getTime();
                     findShortestPath(g);
+                }else{
+                    backToNormal(list);
                 }
             }else{
                 currentTime = Sys.getTime();
                 delta += (currentTime-lastTime);
-                if( delta >= 3000 ){
+                if( delta >= g.getRevivalTime()*1000 ){
                     delta = 0;
                     g.setDied(false);
                     g.setState(Ghost.STATE.NORMAL);
@@ -92,5 +88,18 @@ public class GhostController extends EntityController{
 
         }
 
+    }
+    public void backToNormal(ArrayList<Ghost> ghosts){
+        backToCurrentTime = Sys.getTime();
+        backToDelta+= (backToCurrentTime-backToLastTime);
+
+        if( backToDelta >= 3000 ){
+            backToDelta = 0;
+            for( Ghost ghost : ghosts ){
+                ghost.setState(Ghost.STATE.NORMAL);
+            }
+        }
+
+        backToLastTime = backToCurrentTime;
     }
 }

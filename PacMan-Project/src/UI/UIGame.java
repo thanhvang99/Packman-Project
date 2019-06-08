@@ -12,7 +12,7 @@ import static java.lang.Math.sin;
 import static org.lwjgl.opengl.GL11.*;
 import static org.newdawn.slick.opengl.renderer.SGL.GL_QUADS;
 
-public class UIGame {
+public class UIGame extends UIState{
     private Entity pac;
     private ArrayList<Ghost> ghosts;
     private Graph graph;
@@ -68,7 +68,7 @@ public class UIGame {
 
 
     }
-     private void draw(DrawableObject e,int width,int height){
+    private void draw(DrawableObject e,int width,int height){
         int x_pixel = e.getX_pixel();
         int y_pixel = e.getY_pixel();
         int multipleNumber = e.getMultipleNumber();

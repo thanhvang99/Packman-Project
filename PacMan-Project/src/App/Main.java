@@ -1,18 +1,18 @@
 package App;
 
-import Controller.GhostController;
-import Controller.GraphController;
-import Controller.PacController;
-import Entity.*;
-import UI.UIGame;
+
+import Controller.GameOverStateController;
+import Controller.MenuStateController;
+import Entity.GameObject;
+import Entity.State;
+import UI.UIGameOver;
+import UI.UIMenu;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
-
-import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -28,34 +28,90 @@ public class Main {
 
     }
     private static void init(){
-        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
+//        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
+//
+//        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
+//        Entity ghost = new Ghost(19,3,"ghost",3,3,"gif");
+//        Entity ghost1 = new Ghost(0,16,"ghost",3,3,"gif");
+//        Entity ghost2 = new Ghost(21,16,"ghost",3,3,"gif");
+//        Entity ghost3 = new Ghost(19,3,"ghost",3,3,"gif");
+//        pac.setSpeed(2);
+//        ghost.setSpeed(1);
+//        ghost1.setSpeed(1);
+//
+//
+//
+//
+//        listOfGhosts.add((Ghost)ghost);
+//        listOfGhosts.add((Ghost)ghost1);
+//        listOfGhosts.add((Ghost)ghost2);
+//        listOfGhosts.add((Ghost)ghost3);
+//
+//        Graph graph = new Graph("maze.txt");
+//
+//
+//
+//
+//        new UIGame(pac,listOfGhosts,graph);
+//        new PacController(pac);
+//        new GraphController(graph,listOfGhosts,pac);
+//        new GhostController(listOfGhosts);
+//        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
+//
+//        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
+//        Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
+//        Entity ghost1 = new Ghost(19,0,"ghost",3,3,"gif");
+//        pac.setSpeed(2);
+//        ghost.setSpeed(1);
+//        ghost1.setSpeed(1);
+//
+//
+//        listOfGhosts.add((Ghost)ghost);
+//        listOfGhosts.add((Ghost)ghost1);
+//
+//        Graph graph = new Graph("maze.txt");
+//
+//
+//
+//        new UIEntity(pac,listOfGhosts,graph);
+//        new PacController(pac);
+//        new GraphController(graph,listOfGhosts,,pac);
+//        new GhostController(listOfGhosts);
 
-        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
-        Entity ghost = new Ghost(19,3,"ghost",3,3,"gif");
-        Entity ghost1 = new Ghost(0,16,"ghost",3,3,"gif");
-        Entity ghost2 = new Ghost(21,16,"ghost",3,3,"gif");
-        Entity ghost3 = new Ghost(19,3,"ghost",3,3,"gif");
-        pac.setSpeed(2);
-        ghost.setSpeed(1);
-        ghost1.setSpeed(1);
+        UIMenu uiMenu = new UIMenu(1,"menu",1,"jpg");
+        MenuStateController menuStateController = new MenuStateController(uiMenu);
 
+//        UIGameOver uiMenu = new UIGameOver(1,"gameover",1,"jpg");
+//        GameOverStateController menuController= new GameOverStateController();
 
-
-
-        listOfGhosts.add((Ghost)ghost);
-        listOfGhosts.add((Ghost)ghost1);
-        listOfGhosts.add((Ghost)ghost2);
-        listOfGhosts.add((Ghost)ghost3);
-
-        Graph graph = new Graph("maze.txt");
-
-
-
-
-        new UIGame(pac,listOfGhosts,graph);
-        new PacController(pac);
-        new GraphController(graph,listOfGhosts,pac);
-        new GhostController(listOfGhosts);
+//        ArrayList<Ghost> listOfGhosts = new ArrayList<Ghost>();
+//
+//        Entity pac = new PacMan(3,3,"pac",11,22,"gif");
+//        Entity ghost = new Ghost(0,4,"ghost",3,3,"gif");
+//        Entity ghost1 = new Ghost(0,16,"ghost",3,3,"gif");
+//        Entity ghost2 = new Ghost(21,16,"ghost",3,3,"gif");
+//        Entity ghost3 = new Ghost(19,3,"ghost",3,3,"gif");
+//        pac.setSpeed(2);
+//        ghost.setSpeed(1);
+//        ghost1.setSpeed(1);
+//
+//
+//
+//
+//        listOfGhosts.add((Ghost)ghost);
+////        listOfGhosts.add((Ghost)ghost1);
+////        listOfGhosts.add((Ghost)ghost2);
+////        listOfGhosts.add((Ghost)ghost3);
+//
+//        Graph graph = new Graph("maze.txt");
+//
+//
+//
+//
+//        new UIGame(pac,listOfGhosts,graph);
+//        new PacController(pac);
+//        new GraphController(graph,listOfGhosts,pac);
+//        new GhostController(listOfGhosts,graph);
 
     }
     private static void setUpWindow(){
@@ -107,8 +163,10 @@ public class Main {
                 Display.destroy();
                 System.exit(1);
             }
-            GameObject.notifyController();
-            GameObject.notifyUI();
+//            GameObject.notifyController();
+//            GameObject.notifyUI();
+            State.notifyUI();
+            State.notifyStateController();
             Display.update();
             Display.sync(60);
 
@@ -116,10 +174,3 @@ public class Main {
 
     }
 }
-<<<<<<< HEAD
-//TestGitNoWorkSpace
-//1234567899
-//ThuanContinueTestOnGit
-//AloAlo
-=======
->>>>>>> 8e609b471f013b2b08f732f24937c6b479858500

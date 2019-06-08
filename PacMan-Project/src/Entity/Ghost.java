@@ -5,8 +5,11 @@ import edu.princeton.cs.algs4.Stack;
 import org.lwjgl.util.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ghost extends Entity{
+    private int reviveSecond;
+
     public enum STATE{
         NORMAL,SCARY;
     }
@@ -18,6 +21,8 @@ public class Ghost extends Entity{
 
     public Ghost(int row,int column,String keyName,int numberOfFrames,int fps,String format){
         super(row,column,keyName,numberOfFrames,fps,format,TYPE.GHOST);
+        Random r = new Random();
+        reviveSecond = r.nextInt(4)+3;
         shortestPath = new Stack<Node>();
         state = STATE.NORMAL;
         setAnimation();
@@ -68,5 +73,6 @@ public class Ghost extends Entity{
         this.state = state;
 
     }
+    public int getRevivalTime(){return reviveSecond;}
 }
 

@@ -1,11 +1,8 @@
 package Entity;
 
-import Controller.AnimationController;
-import Controller.ObjectController;
-import org.lwjgl.util.Rectangle;
 
-import java.util.ArrayList;
 import java.util.Random;
+
 
 public abstract class Entity extends DrawableObject{
     // Default value for width,height = 25;

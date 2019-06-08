@@ -1,32 +1,45 @@
 package Controller;
 
-import Entity.GameState;
 import Entity.State;
-import org.lwjgl.input.Mouse;
+import Helper.ButtonController;
+import UI.UIMenu;
+import org.lwjgl.opengl.Display;
 
 public class MenuStateController extends StateController {
 
-    public MenuStateController(State state) {
-        super(state);
-        setCurrentController(this);
+    private UIMenu uiMenuState;
+
+    ButtonController startController;
+    ButtonController exitController;
+
+    public MenuStateController(UIMenu uiMenuState) {
+        this.uiMenuState = uiMenuState;
+        State.setCurrentStateController(this);
+        init();
+    }
+
+    public void init() {
+        startController = new ButtonController(uiMenuState.getStart());
+        exitController = new ButtonController((uiMenuState.getExit()));
     }
 
     @Override
     public void updateState() {
-        if (checkInput()){
-            StateController gameStateController = new GameOverStateController(new GameState());
+        if (startController.isClicked()) {
+//            UIGameOver uiGameOver = new UIGameOver(1, "gameover", 1, "jpg");
+//            GameOverStateController gameOverController = new GameOverStateController(uiGameOver);
+            State.setCurrentStateController(new GameStateController());
+
+
+        }
+        if (exitController.isClicked()) {
+            Display.destroy();
+            System.exit(1);
         }
     }
 
     @Override
     public boolean checkInput() {
-//  Example
-        if (state.isDisplaying()) {
-            if (Mouse.isButtonDown(1))
-                if (Mouse.getX() >= 20 && Mouse.getX() <= 60)
-                    if (Mouse.getY() >= 20 && Mouse.getY() <= 60)
-                        return true;
-        }
         return false;
     }
 }

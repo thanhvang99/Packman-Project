@@ -1,4 +1,5 @@
 package Entity;
 
-public class GameOverState extends State{
+public class GameOverState extends State {
+
 }

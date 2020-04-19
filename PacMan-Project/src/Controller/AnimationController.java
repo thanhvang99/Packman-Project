@@ -2,20 +2,25 @@ package Controller;
 
 import Entity.Animation;
 
-public class AnimationController extends ObjectController{
-    private Animation animation;
+import java.util.ArrayList;
 
-    public AnimationController(Animation animation){
-       this.animation = animation;
-       animation.add(this);
+public class AnimationController extends ObjectController{
+
+    private ArrayList<Animation> animations;
+
+    public AnimationController(ArrayList<Animation> animations) {
+       this.animations = animations;
+       for(Animation animation: animations) {
+           animation.addController(this);
+       }
     }
 
     @Override
     public void update() {
-
-
+        bind();
     }
-    private void bind(){
+
+    private void bind() {
 
 
     }
